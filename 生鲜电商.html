@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="https://jscdn.com.cn/highcharts/images/favicon.ico">
+	<link rel="icon" href="https://jscdn.com.cn/highcharts/images/favicon.ico">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/main.css">
+    <title>生鲜电商</title>
+	<script src="https://code.highcharts.com.cn/jquery/jquery-1.8.3.min.js"></script>
+	<script src="https://code.highcharts.com.cn/highmaps/highmaps.js"></script>
+	<script src="https://code.highcharts.com.cn/highcharts/modules/drilldown.js"></script>
+	<script src="https://code.highcharts.com.cn/highcharts/modules/exporting.js"></script>
+	 
+	<script src="https://code.highcharts.com.cn/highcharts/highcharts.js"></script>
+	<script src="https://code.highcharts.com.cn/highcharts/highcharts-more.js"></script>
+	<script src="https://code.highcharts.com.cn/highcharts/modules/exporting.js"></script>
+	<script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+	
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+	<script src="js/jquery-1.7.2.min.js" language="javascript"></script>
+	<script src="js/d3.min.js" language="javascript"></script>
+	<script src="js/jquery.color.js" language="javascript"></script>
+	
+    <script src="js/jquery.min.js"></script>
+    <script src="js/TweenMax.min.js"></script>
+    <script src="js/ScrollMagic.min.js"></script>
+    <script src="js/animation.gsap.min.js"></script>
+    <script src="js/debug.addIndicators.min.js"></script>
+    <script src="js/d3.v3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script> 
+	
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+	<script src="js/jquery-1.7.2.min.js" language="javascript"></script>
+	<script src="js/d3.min.js" language="javascript"></script>
+	<script src="js/jquery.color.js" language="javascript"></script>
+	
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+	<script src="js/jquery-1.7.2.min.js" language="javascript"></script>
+	<script src="js/d3.min.js" language="javascript"></script>
+	<script src="js/jquery.color.js" language="javascript"></script>
+	
+	
+	</head>
+	<style type="text/css">
+* {padding: 0;margin: 0;font-family: "微软雅黑";font-size: 14px;}
+ul,li {list-style: none;}
+a {text-decoration: none;color: black;}
+.box{width: 800px;height: 400px;margin: 20px auto;overflow: hidden;position: relative;}
+.box-1 ul{}
+.box-1 ul li{width: 800px;height: 400px;position: relative;overflow: hidden;}
+.box-1 ul li img{display:block;width: 800px; height: 400px;}
+.box-1 ul li h2{position: absolute;left: 0;bottom: 0;height: 40px;width:300px;background: rgba(125,125,120,.4);text-indent: 2em;
+				padding-right:500px ;font-size: 15px;line-height: 40px;text-overflow: ellipsis;overflow: hidden;
+				white-space: nowrap;font-weight: normal;color: ghostwhite}
+.box-2{position: absolute;right: 10px;bottom: 14px;}
+.box-2 ul li{float:left;width: 12px;height: 12px;overflow: hidden; margin: 0 5px; border-radius: 50%;
+				background: rgba(0,0,0,0.5);text-indent: 100px;cursor: pointer;}
+.box-2 ul .on{background: rgba(255,255,255,0.6);}
+.box-3 span{position: absolute;color: white;background: rgba(125,125,120,.3);width: 50px;height: 80px;
+				top:50%; font-family: "宋体";line-height: 80px;font-size:60px;margin-top: -40px;
+				text-align: center;cursor: pointer;}
+.box-3 .prev{left: 10px;}
+.box-3 .next{right: 10px;}
+.box-3 span::selection{background: transparent;}
+.box-3 span:hover{background: rgba(125,125,120,.8);}
+</style>
+
+<script type="text/javascript">
+window.onload = function(){
+	function $(param){
+		if(arguments[1] == true){
+			return document.querySelectorAll(param);
+		}else{
+			return document.querySelector(param);
+		}
+	}
+	var $box = $(".box");
+	var $box1 = $(".box-1 ul li",true);
+	var $box2 = $(".box-2 ul");
+	var $box3 = $(".box-3");
+	var $length = $box1.length;
+	
+	var str = "";
+	for(var i =0;i<$length;i++){
+		if(i==0){
+			str +="<li class='on'>"+(i+1)+"</li>";
+		}else{
+			str += "<li>"+(i+1)+"</li>";
+		}
+	}
+	$box2.innerHTML = str;
+	
+	var current = 0;
+	
+	var timer;
+	timer = setInterval(go,1000);
+	function go(){
+		for(var j =0;j<$length;j++){
+			$box1[j].style.display = "none";
+			$box2.children[j].className = "";
+		}
+		if($length == current){
+			current = 0;
+		}
+		$box1[current].style.display = "block";
+		$box2.children[current].className = "on";
+		current++;
+	}
+	
+	for(var k=0;k<$length;k++){
+		$box1[k].onmouseover = function(){
+			clearInterval(timer);
+		}
+		$box1[k].onmouseout = function(){
+			timer = setInterval(go,1000);
+		}
+	}
+	for(var p=0;p<$box3.children.length;p++){
+		$box3.children[p].onmouseover = function(){
+			clearInterval(timer);
+		};
+		$box3.children[p].onmouseout = function(){
+			timer = setInterval(go,1000);
+		}
+	}
+	
+	for(var u =0;u<$length;u++){
+		$box2.children[u].index  = u;
+		$box2.children[u].onmouseover = function(){
+			clearInterval(timer);
+			for(var j=0;j<$length;j++){
+				$box1[j].style.display = "none";
+				$box2.children[j].className = "";
+			}
+			this.className = "on";
+			$box1[this.index].style.display = "block";
+			current = this.index +1;
+		}
+		$box2.children[u].onmouseout = function(){
+			timer = setInterval(go,1000);
+		}
+	}
+	
+	$box3.children[0].onclick = function(){
+		back();
+	}
+	$box3.children[1].onclick = function(){
+		go();
+	}
+	function back(){
+		for(var j =0;j<$length;j++){
+			$box1[j].style.display = "none";
+			$box2.children[j].className = "";
+		}
+		if(current == 0){
+			current = $length;
+		}
+		$box1[current-1].style.display = "block";
+		$box2.children[current-1].className = "on";
+		current--;
+	}
+}
+</script>
+
+<style>
+	p{
+		text-indent: 2em;
+		font-family:"微软雅黑";
+	}
+	
+	</style>
+<body>
+<!-- loading资源预加载 -->
+<div id="preloader" class="preloader">
+	<img src="images/loading.gif" alt="" class="loading_pic1">
+</div>
+
+<!-- 侧边栏导航 -->
+<div class="nav-button" id="nav-button-1">
+	<span style="color:rgb(38, 84, 115); font-size: 25px; padding: 10px;" class="glyphicon glyphicon-list" aria-hidden="true"></span>
+</div>
+<div class="nav-button" id="back-to-top" style="top: 70px;">
+	<span style="color:rgb(38, 84, 115); font-size: 25px; padding: 10px;" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+</div>
+<div class="the-sidebar" id="the-sidebar">
+	<div class="nav-button" id="nav-button-2">
+		<span style="color:rgba(150, 154, 100, 0.8); font-size: 25px; padding: 10px;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+	</div>
+
+	<a href="#trigger-chapter1"><div class="sidebar-div" style="top: 100px;">
+		<img src="images/标题一.png" style="width: 80%; margin:0 10%;" alt="">
+	</div></a>
+	<a href="#trigger-chapter2"><div class="sidebar-div" style="top: 250px;">
+		<img src="images/标题二.png" style="width: 80%; margin:0 10%;" alt="">
+	</div></a>
+	<a href="#trigger-chapter3"><div class="sidebar-div" style="top: 400px;">
+		<img src="images/标题三.png" style="width: 80%; margin:0 10%;" alt="">
+	</div></a>
+
+</div>
+
+	<!-- 这是标题 -->
+	<header>
+		<div id="title" class="re_title1" style="background:url(images/header1.jpg);background-size:contain;background-repeat:no-repeat;width: auto;height: 400px" >
+			
+			<!-- <h1 class="header_h1">生鲜电商的“新鲜”升级之路</h1>-->
+			
+			<!-- <div id="scroller" title="Scroll Down"></div> -->
+		</div>
+	</header>
+	
+	
+	<!--这是内容-->
+	<main>
+	<!--导语-->
+    <div class="section">
+		<p>6月12号，北京最大农产品批发市场新发地出现新冠阳性患者，引发一波“抢菜”大潮：多个生鲜电商APP上的生鲜产品被抢购一空，还有网友晒出超市空荡荡的菜架照片。</p>
+				<br>
+		<img class="pic1" src="images/导语配图.jpg" style="width: px;height: 450px">
+		<p style="font-family: '楷体';text-align: center;font-size: 15px">网友晒出的空荡荡的菜价 @coco家的王小黄  </p>
+		<br>
+		<p>“抢菜”对于刚刚经历过居家抗疫的人来说并不陌生。漫长的疫情期间，千万家庭“被迫”成为了线上买菜的新用户，抢购便宜又新鲜的水果蔬菜成为许多人每天都要做的事。</P>
+
+		<p>与其他在疫情期间陷入萧条的行业相比，线上用户的激增使得生鲜电商在疫情期间显得异常火热，市场渗透率和成交量急剧提升，引人注目。</p>
+		<p>然而，随着疫情进入下半场，“抢菜群众”不再疯狂，人们在对生鲜电商的关注逐渐转变为对于生鲜电商的未来的猜测。</p>
+		<p>疫情期间千万级别的活跃度究竟是行业天花板，还是未来沉淀的发展起点？鲜电商多年探索的保鲜供应链、仓配模式又能否适应人们升级的需求？</p>
+		<br>
+		<br>
+	</div>
+		
+		
+<!--第一部分：疫情之后用户流失：不够新鲜-->
+	<header  >
+		<!-- 标题 -->
+		<div id="title" class="re_title1" style="background:url(images/标题一.jpg);background-size:contain;background-repeat:no-repeat;">
+			<h1 class="header_h1" id="trigger-chapter1">疫后用户流失:<br>不够新鲜</br></h1>
+			<!-- <div id="scroller" title="Scroll Down"></div> -->
+		</div>
+		<!-- 导语 -->
+		<div id="lead">
+			<p style="font-family: '楷体';text-align: left;color:#EAE4E6">张女士每天在盒马上购买一百元左右的生鲜，到现在累计花费超过万元。“方便是方便，就是东西送过来不知道好差。像活虾买过来有时候活蹦乱跳的，有时候买过来有一半是死的。”<br><audio controls src="张女士.mp3" style="width: 0.01px;height: 0.5px;background-color:'none';"></audio></p>
+		</div>
+	</header>
+	<br>
+    <br>
+    <div class="section"><p><span class="highlight">居住在北京的张女士自3月起便一直在盒马等生鲜电商平台买菜，目前花费已超过万元。但她仍然期望去菜场买菜，“目前觉得带个孩子到菜场不太安全，只能在生鲜电商上买。如果疫情好一点的话，还会去菜场买菜。”</span></p>
+			<p>林女士也表达了回归线下的意愿。无法亲自挑选菜品让林女士觉得线上买菜的新鲜度差强人意，因此疫情好转后，她几乎不再打开手机里的盒马、每日优鲜、京东到家等APP。“当时买的香蕉，要么就过生，要么就过熟。然后青菜品相也不是那么好，相比之下超市的菜品更新鲜一些。”</p>
+
+	</div>
+    <div class="main_wp">
+        <div class="col-sm-6 left" style="float: left">
+            
+         
+			<p><span class="highlight">在春节和疫情的双重作用下，生鲜电商的需求在2月达到顶峰。</span></p><p>QuestMobile 数据显示，生鲜到家在春节后的一个月 MAU（月活跃用户）接近 7 000 万，比2019 年同期增长 59%。</p>	
+		<p>然而随着3、4月份疫情好转，复工复产提上日程，各大生鲜电商平台活跃用户数均有不同程度的下降。人们不再只依赖线上渠道买菜，许多需求从线上转回线下。</p>
+			<p>在这场转移中，单纯依靠线上订单的每日优鲜和叮咚买菜曾经获得了领跑行业的用户增量，但疫情过后也遭遇了较大幅度的用户流失；对于大多数兼营线上线下两个渠道的生鲜电商（如永辉生活、多点等）来说，用户的流失现象则较为缓和。</p>
+     </div>
+		<div class="col-sm-6 right" style="float:left">
+     <img style="padding: 10px" src="images/透明数据图/月活变化（透明）-01.png">
+			 <p style="font-family: '楷体';text-align: center;font-size: 15px">各模式下较大规模的生鲜电商APP<br>月度活跃用户数均在疫情爆发期后有所回落</br> </p>	 
+ </div>
+
+		<div class="section"><br><p>每日优鲜CFO王珺在接受36氪采访时表示：“疫情让生鲜线上渗透率加速推进了两年。”高峰过后，线上用户的“退潮”成为生鲜电商面临的第一大难题。对生鲜电商来说，疫情期间大量涌入的流量无异于一次压力测试，而这场测试的重点，就是生鲜产品的新鲜度。
+			</p>
+			<p>“方便是方便，就是东西送过来不知道好差。像活虾买过来有时候活蹦乱跳的，有时候买过来有一半是死的。”张女士表示，生鲜电商平台虽然会采取一定的保鲜措施，<span class="highlight">但“保不好鲜”的问题依然存在。</span></p>
+		<br>
+        <img class="pic1" src="images/配图/第一部分-张女士从盒马上买的菜（受访者供图）.jpg">
+		<p style="font-family: '楷体';text-align: center;font-size: 15px">居住在海边的张女士喜欢买鱼虾等海鲜，“鱼虾会处理得很干净，菜市场不会，我想这些可能也有保鲜的东西放进去。”(受访者供)  </p>
+		<br>
+		
+	</div>
+ <div style="clear:both"></div>
+ <br>
+ <div class="col-sm-6 left" style="float: left">
+    <div id="container1" style="min-width:350px;height:400px"></div>
+	 <p style="font-family: '楷体';text-align: center;font-size: 15px">提示：点击词语，会出现相关评论节选。</p>
+</div>
+
+<div class="col-sm-6 right" style="float:left">
+    <p>跟张女士一样关注“新鲜”的用户还有很多。通过对5个主流生鲜电商应用在苹果商店一年间的一万八千多条评论进行分析，可以发现评分呈现出两极分化的趋势——1分和5分的数量占评论总数的九成以上。</p>
+	<p>“新鲜”和“配送”分别是好评和差评中最常出现的词语。</p>
+	<p>评论中的好评主要集中在商品品质的新鲜，包括蔬菜是否“水灵”，海鲜是否“现抓”，水果的品质口感等；差评则集中于配送服务，包括超过范围和时间，不满客服对产品质量不佳的处理，以及配送过程中保鲜措施不到位等问题。</p>
+	<p>“配送时间长肯定品质就会下降，”林女士曾经因为配送问题给某电商平台打过差评，“生鲜这种东西它挺容易坏的，特别是在夏天的时候，配送时间长了打开袋子看到都是化的水珠，心里就会犯嘀咕。”</p>
+</div>
+<div class="clear:both"></div>
+    </div>
+
+	<div class="section">
+		<br>
+		<p>归根结底，“新鲜”是用户最为关注的核心问题。如果说疫情期间人们的选择余地不那么大，只能通过线上渠道买菜，那么回归正常生活后，生鲜产品是否“新鲜”就成为生鲜电商能否留住用户的关键一环。</p>
+	 <p>安徽消保委针对生鲜电商平台做的一项调查显示，生鲜电商平台商品的新鲜度参差不齐，规模较大的商超平台在商品品质和新鲜度方面做的更好。
+	   </p>
+		<p>保持生鲜产品的新鲜并不是一件容易事。从产地到用户手中，生鲜产品的保鲜需要耗费大量的人力物力财力。就我国目前的冷链物流情况来说，规模较小的生鲜电商靠自己的力量完成全流程的保鲜几乎不可能。如何有效进行生鲜流通过程中的保鲜，一直是生鲜电商从业者着力研究的问题。</p>
+		<br>
+	</div>
+    
+
+<!--第二部分：生鲜冷链物流，道阻且长-->
+	<header>
+		<!-- 标题 -->
+		<div id="title" class="re_title1" style="background:url(images/二.png);background-size:contain;background-repeat:no-repeat;">
+			<h1 class="header_h1" id="trigger-chapter2">生鲜冷链物流：<br>道阻且长</h1>
+			<!-- <div id="scroller" title="Scroll Down"></div> -->
+		</div>
+		<!-- 导语 -->
+		<div id="lead"><p style="font-family: '楷体';text-align: left;color:#EAE4E6">“没有冷藏车的话，可能是40%的腐坏，而有冷藏车的话，可能只是5%的腐坏。”物流从业者李茂元说。<br><audio controls src="关于成本和冷链资源分布.mp3" style="width: 0;height: 0;background-color:'none',"></audio></p></div>
+	</header>
+<div class="section">
+	<br>
+		<p>简化来看，生鲜产品的供应链分为运输、仓储、配送三个环节：一是从原产地到存储仓的冷链运输环节，二是存储仓内的贮藏环节，最后是从存储仓到用户手中的配送环节。三个环节服务于生鲜冷链物流的不同阶段，面临的困难也不尽相同。</p>
+
+
+	</div>
+
+	<div class="section">
+		    <h3 style="text-align: center"><span style="font-weight: bolder">第一公里：从产地开始的冷链资源缺失</span></h3>
+		<p>生鲜产品的保鲜从采摘下的第一秒就已经开始。</p>
+		<p>《2019农产品产地冷链研究报告》显示，“冷库设施不能满足需求的生产者的原因”中，61%“源于产地冷藏设施缺乏或数量不足”。</p>
+		<p>目前，我国冷链资源主要集中在东南沿海地区，以及北京上海这些一二线城市等生鲜销售地，然而许多生鲜产品产地却位于中西部地区。例如，四川、云南、新疆等省份苹果产量较大，冷链资源却十分稀缺，这就导致树上摘下来的苹果，无法第一时间配备冷链运输设施，果实新鲜度迅速损失。</p>
+		<div id="container"></div>
+		<br>
+		<p>在冷链资源缺乏的地区，企业找不到合适的仓库，运输需求大于运输能力，生鲜物流的成本也随之提高。</p>
+		<p>冷链运输需要一些专业的制冷设备，包括冷库、制冷车、制冷电费等，它们的购买和维持费用远高于常温运输，因此提高了生鲜产品的物流成本。“像苹果常温运输的成本在3kg/5元左右，”做圆通速递生鲜冷链业务的李茂元计算道，“而顺丰冷链平均下来则在13元左右。”</p>
+    .   <img class="pic1" src="images/透明数据图/冷链价格对比（透明）-01.png"><br>
+<p>此外，包装也是提高冷链运输成本的因素之一。李茂元指出，生鲜的包装耗材较常温包装更多，“里边用的白色泡沫箱，加上干冰加上冰袋的这种，外面又套上纸箱，表面上看起来可能和常温的快递没什么区别，但实际上它的包装很耗材”。
+</p>
+<p>目前国内生鲜电商冷链物流的成本占总成本的30%左右。然而李茂元认为，健康的生鲜电商物流成本不应超过10%。较高的物流成本，使得大多数中小型生鲜电商没有足够的现金流用于周转，无法承担高昂的冷链配送费用，大大降低了冷链运输广泛普及的可能性。
+</p>
+<p>“我国冷链发展现在还是初级阶段，”李茂元说，“冷链普及是远远比不上发达国家，相应的生鲜腐损率也会比人家高很多。”
+		</p></div>
+<div class="section">
+<div class="box" style="width: 500px;height: 400px">
+	<div class="box-1">
+		<ul>
+			<li>
+				<img src="images/1.jpg" alt="这里是第一场图片"></img>
+				<h2>这里是第一张图片这里是第一张图片</h2>
+			</li>
+			<li>
+				<img src="images/2.jpg" alt="这里是第二张图片"></img>
+				<h2>这里是第二张图片这里是第二张图片</h2>
+			</li>
+			<li>
+				<img src="images/3.jpg" alt="这里是第三张图片"></img>
+				<h2>这里是第三张图片这里是第三张图片</h2>
+			</li>
+			<li>
+				<img src="images/4.jpg" alt="这里是第一场图片"></img>
+				<h2>这里是第四张图片这里是第四张图片</h2>
+			</li>
+			<li>
+				<img src="images/5.jpg" alt="这里是第一场图片"></img>
+				<h2>这里是第五张图片这里是第五张图片</h2>
+			</li>
+		</ul>
+	</div>
+	<div class="box-2">
+		<ul>
+			
+		</ul>
+	</div>
+	<div class="box-3">
+		<span class="prev"> < </span>
+		<span class="next"> > </span>
+	</div>
+</div>
+</div>
+<div clase="section">
+<p>目前，我国果蔬、肉类、水产等生鲜的冷藏流通率分别为15%、30%、40%，而发达国家的这一数值超过80%。在冷藏设施不完备的情况下，生鲜运输的腐损率也高于发达国家数倍。
+</p>
+<img class="pic1" src="images/透明数据图/中国发达国家对比绿橙（透明）-01.png"><br>
+<p>在降低冷链物流成本方面，2020年中央一号文件提出启动农产品仓储保鲜冷链物流设施建设工程，包括给予优惠用电价格，对农业生产地的冷藏保鲜等设施进行支持等。但除此之外，李茂元认为我国冷链运输的成本并不能在短时间内迅速下降。</p>
+<p>保鲜之路开头的冷链运输是生鲜电商供应链中的关键。要打通分散的产地和需求地之间的联系，并在汇聚的过程中控制温度、湿度，防止污染，保证食品新鲜地到达门店，这还仅仅是生鲜“保鲜”的第一步。</p>
+</div>
+
+	<br>
+		
+		
+<div class="section">
+	<h3 style="text-align: center"><span style="font-weight: bolder">存储仓：质量控制中难免的损耗</span></h3>
+	<P>到达存储仓后，生鲜产品进入质量损耗的第二个阶段。</P>
+	<p>放置时间一长，生鲜产品会出现打蔫、压坏等问题。针对这一问题，北京市一家每日优鲜店主王先生称，会在商品出库之前进行品质检查，将损坏的商品扔掉。
+</p>
+	<p>品质检查不仅仅包括表面损坏，也包括对存放时间的控制。疫情之前为了避免损耗，公司基于对前一天消费数据的分析，给各个仓储配货，尽量做到当天配货当天售光，如果有积压，积压时间也不能超过一个星期，超时生鲜产品就会被处理掉。在疫情期间，由于“订单量大概比平常增长20~30%”，公司增大了补货量，为控制质量，周转时间被缩短至三天。
+</p>
+	<p>“大概在3月中旬到4月份，开始有‘周转期’（音频交互）这个说法。”王先生说。“像叶菜大概就是三天的周转。从公司开始配货的那一天开始算，包括中间的流通，等到我们的前置仓了顶多卖一天半，这个菜就需要处理，就不能卖了。”
+</p>
+	<p>对质量的控制不可避免会带来损耗。存储仓的损耗主要来源于货物积压，疫情之前，为了避免积压损耗，公司会通过算法分析前一天的消费数据，进而估计第二天的需求，并辅助人工调整。</p>
+	<p>但行业研究研究者妮可指出，这一看似智能的配货模式实则并不那么精确。“每日优鲜宣传自己有算法，会让订单非常准确。但是我觉得在很长一段时间内，这个算法都不会精准到能预测这个区域的消费者今天想吃什么、不想吃什么。因为顾客需求是多变的，甚至是天气变化也会影响到顾客需求。”
+</p>
+</div>
+
+<div class="section">
+	<h3 style="text-align: center"><span style="font-weight: bolder">最后一公里：断裂的冷链运输</span></h3>
+	<p>目前国内冷链运输存在着成本高、起步晚、基础薄弱等问题，许多生鲜电商尚不具备全程冷链运输的能力。N & K Spedition第二大股东及亚洲区总裁戴治中曾指出，目前中国的冷链物流服务，绝大多数都属于<span class="highlight">断链的状态。</span></p>
+	<p>生鲜电商的“断链”主要表现在最后一公里的配送上，生鲜产品从存储仓取出后，一般采用“电动车+泡沫箱+冰袋/干冰袋”的方式配送，部分商家甚至还采用常温配送或与其他商品混装配送。</p>
+	<br>
+	<img class="pic1" src="images/配送/DSC_0198.JPG">
+	<p style="font-family: '楷体';text-align:left;font-size: 15px">图注：为了保证夏天的冷藏食品质量，大润发淘鲜达采用红色保温箱和蓝色冰包给产品保温。</p>
+	<br>
+	<p>随着配送时间的延长，配送箱的保温效果会逐渐变差，继而影响食品的新鲜程度。因此，在末端配送能力有限的情况下，生鲜电商需要尽可能选择接近用户的仓配模式。目前，生鲜电商主要有以下三种仓储配送模式。</p>
+	<p>经过细分，目前比较流行的仓配模式有三种：前置仓、店仓一体和第三方配送平台。</p>
+
+</div>
+<div class="mobile_title">纯存储式前置仓</div>
+<div class="mobile_img"><img src="images/cang1.jpg" alt=""></div>
+<div class="mobile_p1">
+	<br>
+	<br>
+	<p>前置仓是一种被前移的仓库，它将物流中转中心放在用户密度高的“最前线”，由于距离用户较近，配送时间可缩短至半小时至1小时。</p>
+	<br>
+	 <p>这类仓库只有线上订单，没有线下购买入口，因此为了尽量降低租金，可能会选择地下或其他不太醒目的地点。</p>
+	<br>
+	<p>前置仓通过大数据分析周边用户的具体需求，每个仓库只存放少部分品类，减少占地面积和管理成本。</p>
+</div>
+<div id="trigger1"></div>
+        <div id="pin1">
+			<div style="position: absolute"><img src="images/cang3.png" style="width:80%;float:left" class="before_3"></div>
+            <div style="position: absolute"><img src="images/cang2.jpg" style="width:80%;float:left" class="before_2"></div>
+            <div style="position: absolute"><img src="images/cang1.jpg" style="width:100%;float:left" class="before_1"></div>
+        </div>
+        <div id="pin1_words">
+            <h4 class="pin1_content">纯存储式前置仓</h4>
+            <br>
+			<br>
+				<div class="pin1_content">
+					<p>前置仓是一种被前移的仓库，它将物流中转中心放在用户密度高的“最前线”，由于距离用户较近，配送时间可缩短至半小时至1小时。</p>
+					<br>
+					 <p>这类仓库只有线上订单，没有线下购买入口，因此为了尽量降低租金，可能会选择地下或其他不太醒目的地点。</p>
+					<br>
+					<p>前置仓通过大数据分析周边用户的具体需求，每个仓库只存放少部分品类，减少占地面积和管理成本。</p>
+					<br>
+				</div>
+						<div id="trigger2"></div>
+			<h4>仓店一体</h4>
+			<div class="mobile_img"><img src="images/cang2.png" alt=""></div>
+			<br>
+			<br>
+		    <p>店仓一体，相当于把前置仓和生鲜门店融为一体，同时具有线上和线下的购买入口。</p>
+			<br>
+		    <p>对于线下消费者来说，它是一个门店，顾客可以走进来逛街买菜；对于线上消费者来说，它是物流的中转中心（即仓库），线上订单直接从门店发货配送。</p>
+		    <br>
+			<p>由于兼具线上线下需求，店仓一体往往位于人流量较大的居民区附近，租金成本较高。</p>
+	        <br>
+			<p>店仓一体模式中，从门店货架、实时库存到即时配送，都需要在线上线下同步进行。完善的门店管理能力和数据处理能力，两者缺一不可。</p>
+			<br>
+			<div id="trigger3"></div>
+			<h4>第三方配送平台</h4>
+			<div class="mobile_img"><img src="images/cang3.png" alt=""></div>
+			<br>
+		  <p>建立自己的配送体系，需要投入大量的金钱成本和技术成本，传统生鲜零售巨头尚且转型艰难，对体量中小的零售商而言更是天方夜谭。将配送服务外包给第三方配送平台，成为中小生鲜零售商的便宜之策。</p>
+			<br>
+			<p>除了配送方式外，这一模式的核心与店仓一体十分类似，即把门店和仓库融合，同时经营线上和线下业务。因此在选址上，也主要分布在人流量大的居民聚集地段。</p>
+			<br>
+			<div id="trigger4"></div>
+			<div id="trigger100"></div>
+    
+	
+	</div>
+<div class="section">
+	<br>
+	<br>
+	<br>
+	<br>
+	<p>传统生鲜零售做的是线下生意，生鲜产品在门店内保鲜，顾客可以亲自上门挑选，不涉及配送问题。在这种情况下，仓库的位置对于生鲜产品的保鲜来说并不十分重要，为了降低成本，仓库往往位于远离人群的偏远郊区。</p>
+	<img class="pic1" src="images/配送中心、菜场素材/配送中心3.JPG">
+	<p style="font-family: '楷体';text-align:left;font-size: 15px">图注：浙江乐清一家连锁超市配送中心的仓库。仓库面积两万平方米，位于经济开发区。</p>
+	<br>
+	<p>但这一模式对生鲜电商来说并不可行，末端配送的断链问题不解决，生鲜电商就无法“离开”用户。</p>
+	<p>分析北京市生鲜电商仓库及门店分布数据后发现，北京市生鲜电商大多分布在人口密集的城区。虽然人流量密集地区租金相对较高，但覆盖更多的潜在消费者的同时，也可以缩短配送距离和时间，在一定程度上弥补了末端配送保温设施不足的问题，保证生鲜产品的优质新鲜。</p>
+	<p>从生鲜产地到存储仓，从存储仓到用户，生鲜运输过程中的每一秒、每一米都在力求“保鲜”。因疫情而暴涨的需求，既是对生鲜电商发展八年以来的供应链硬件的考验，也是不同的仓配模式探索之间的较量。</p>
+</div>
+
+<!--第三部分：疫情之后，“新鲜”不只表面-->
+   <header>
+		<!-- 标题 -->
+		<div id="title" class="re_title1" style="background:url(images/三.png);background-size:contain;background-repeat:no-repeat;">
+			<h1 class="header_h1" id="trigger-chapter3">疫情之后<br>“新鲜”只是表面</h1>
+			<!-- <div id="scroller" title="Scroll Down"></div> -->
+		</div>
+		<!-- 导语 -->
+		<div id="lead">
+		<p style="font-family: '楷体';text-align: left;padding-top: 50px;color:#EAE4E6">北京物资学院王可山教授认为：“疫情使人们进一步认识到食品安全的重要性，人们更加注重并将持续保持安全距离，对电商和网购的依赖性也将持续下去。”
+</p>
+		</div>
+	</header>
+    <div class="section">
+		<br>
+		<p>“追求新鲜主要就是在追求健康、追求安全嘛，”2020年是范亚在北京工作的第十年，也是他使用生鲜电商的第五年，“你用生鲜电商买来的东西不能吃了拉肚子、生病。”</p>
+		<p>范亚是生鲜电商用户的一个典型代表。目前生鲜电商的用户主要是集中在一二线城市，收入较高的年轻人。对照一项关于一至三线城市23-50岁消费者的调查来看，在消费升级的大背景下，这一群体对于自己的生活品质有着较高的追求。</p>
+		<br>
+		<img class="pic1" src="images/透明数据图/用户画像（透明）-01.png">
+	    <img class="pic1" src="images/透明数据图/关注品质生活（透明）-01.png">
+		<p style="font-family: '楷体';text-align: center;font-size: 15px">生鲜电商用户图像</p>
+		<br>
+		<p>其中，最主要的追求是健康。在调查中，86%的受访者认为“健康的”是“符合品质生活的描述”，在“构成品质生活的要素”中，“健康状况”也以88%的选择比例高居榜首。</p>
+		<p>在这样的背景下，用户对于新鲜的追求不再止于表面的完好无损，营养是否流失、安全是否有保证，越来越受到用户的关注。</p>
+		<p>此外，这场疫情也再次强调了生鲜食品的安全问题。从最初疫情爆发的华南海鲜市场，到近日疫情反弹的北京新发地菜市场，传统农贸市场的卫生环境和食品安全保障引发了全社会的关注与思考。</p>
+		<p>新发地疫情爆发后，每日优鲜、京东等生鲜电商平台看准时机、发布声明，强调自家生鲜商品流通过程中所采取的安全措施，消减消费者对于食品安全的忧虑。以往生鲜电商主要强调生鲜产品的新鲜，疫情过后，安全作为新鲜的更高层次，或许会得到更多的关注。</p>
+		
+		<br>
+		<img class="pic1" src="images/WechatIMG59.jpeg" style="width: 300px;height: 500px">
+		<p style="font-family: '楷体';text-align:left;font-size: 15px">图注：新发地疫情发生后，每日优鲜、京东等生鲜电商平台发布声明，重点强调了生鲜商品流通过程中所采取的安全措施，消减疫情之下消费者对于食品安全的忧虑。</p>
+		<br>
+        <p>同时，新鲜与安全也为生鲜电商未来的发展指出一条道路。</p> 
+		<p>有人认为，疫情期间的表现就是生鲜电商的“行业天花板”，疫情过后，生鲜电商面临着用户流失、保鲜受阻等重重问题，未来再难现如此辉煌。但北京物资学院王可山教授认为，疫情引发的对于食品安全的担忧，在考验着生鲜电商的同时，也给生鲜电商的发展带来了更大的机遇：“疫情使人们进一步认识到食品安全的重要性，人们更加注重并将持续保持安全距离，对电商和网购的依赖性也将持续下去。”</p>
+		<p>天花板是否已经出现，目前下结论还为时过早。生鲜电商要做的，就是满足用户对于新鲜的需求，注重新鲜，而不止于新鲜。</p>
+</div>
+       
+	
+    </main>
+    <!--以下为footer-->
+    <div class='clear'>
+    <div class="section" style="margin-top:50px">
+		<p style="font-family: '楷体';color: gray;text-align: left">文中xxxxx均为化名</p>
+    </div>
+ <div class="section" style="margin-top:50px">
+        <h5 style="color:#a6a6a6">数据来源</h5>
+        <p style="color:#a6a6a6;font-size: 13px">
+            1.《QuestMobile2020年到家经济发展研究报告》
+            <br> 2.https://www.questmobile.com.cn/research/report-new/88
+            <br>3.生鲜电商评论数据来源：蝉大师https://www.chandashi.com/
+
+            <br> 4.生鲜电商APP月活数据来源：易观千帆
+https://qianfan.analysys.cn/refine/view/rankApp/rankApp.html
+            <br>5.《我国冷链流通率低，腐损率高，冷链基础设施建设亦不完善》
+
+            <br>6.	http://www.leadingir.com/trend/view/3493.html
+
+            <br>7.网经社《【物流数据】目前我国综合冷链流通率仅为19%》
+http://www.100ec.cn/detail--6177595.html
+
+            <br>8.严选&WAVEMAKER：《中国品质生活白皮书》http://www.199it.com/archives/723253.html
+
+            <br>9.艾瑞报告：2019中国生鲜电商行业用户画像分析报告
+http://www.ebrun.com/20190401/327459.shtml
+<br>10.网经社电数宝：电商行业数据库
+https://www.100ec.cn/Home/User/industryData.html?name=sxds
+			<br>11.中冷联盟：2019版全国冷链物流企业分布图
+http://www.lenglianwuliu.org.cn/menu/details.html?menuId=62
+
+    </div>
+	<div class="section" style="margin-top:50px">
+        <h5 style="color:#a6a6a6">参考文章报道链接</h5>
+        <p style="color:#a6a6a6;font-size: 13px">
+            1.《北京连续确诊3例新冠患者 新发地批发市场暂停营业》http://china.caixin.com/2020-06-12/101566524.html
+            <br> 2.	《北京已累计对234.2万人进行核酸检测 日核酸检测能力已提升至30万份以上》 http://www.gov.cn/xinwen/2020-06/23/content_5521367.htm
+            <br>3.《36氪独家 | 每日优鲜完成新一轮融资，投前估值超过30亿美元》https://36kr.com/p/717445292705671
+
+            <br> 4.	《中物联冷链委：2019农产品产地冷链研究报告》https://www.sohu.com/a/341377291_608787
+
+            <br>5.《疫情之下，还原真实的冷链物流》http://www.lenglian.org.cn/news/2020/27208.html
+
+            <br>6.《农业农村部关于加快农产品仓储保鲜冷链设施建设的实施意见》http://www.gov.cn/zhengce/zhengceku/2020-04/21/content_5504611.htm
+
+            <br>7.《与国外差距巨大 中国冷链物流“发育不良”》https://www.qianzhan.com/analyst/detail/220/170629-6c63e63b.html
+
+            <br>8.《冷链物流背后的“断链”思考》http://www.zgsyb.com/news.html?aid=530826
+
+            <br>9.《1.6万进口生鲜无新冠病毒 冰鲜哪些环节存污染风险？》
+http://www.caixin.com/2020-06-20/101570291.html
+			<br>10.全国农产品商务信息公共服务平台
+http://nc.mofcom.gov.cn/channel/qytc2017/specMap.shtml
+			<br>11.2020中央一号文件
+http://www.moa.gov.cn/ztzl/jj2020zyyhwj/2020zyyhwj/202002/t20200207_6336683.htm
+			<br>12.冷链市场混战 外国大军加入争夺http://www.wuliujia2018.com/html/56666.html
+
+
+    </div>
+		<div class="section" style="margin-top:50px">
+        <h5 style="color:#a6a6a6">参考文献</h5>
+        <p style="color:#a6a6a6;font-size: 13px">
+            	1.高峰.生鲜农产品电商物流末端配送问题优化研究[J].南方农机,2020,51(03):81.
+	<br>2.李勇坚.疫情中生鲜电商的机遇、问题与对策：在线新经济视角[J].统一战线学研究,2020,4(03):68-75.
+	<br>3.田继源,杨永安,吴子健.冻藏期间温度波动对三文鱼品质的影响[J].食品研究与开发,2020,41(11):66-70.
+
+    </div>
+    <div class="section">
+        <p style='text-align: center;font-size: 14px;color:gray;padding-top: 100px'>
+            ◎作者：赚大钱 </p>
+    </div>
+ <img src="images/footer.jpg" style="width:100%">
+		</body>
+
+		<script type="text/javascript">
+	var isMobile = $(window).width()>640?false:true;
+	var maxWIDTH = isMobile? $(window).width():990
+	var maxHEIGHT = $(window).height()
+	
+	var WIDTH = maxWIDTH
+	var HEIGHT = maxHEIGHT
+	var highlightFlag = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+	$(document).scroll(function(){			
+		   
+			var top = $(document).scrollTop()
+			if(top>$(window).height()+100){
+				
+			}
+			
+			/* 高亮说明文字 */
+			for(var i=0; i<highlightFlag.length; i++){
+				var highlight = $(document).find(".highlight").eq(i).offset().top
+				if(top>highlight-$(window).height()*0.5){				
+					if(highlightFlag[i]==0){
+						$(document).find(".highlight").eq(i).animate({backgroundColor:'#e0e4a7'},1000)
+						highlightFlag[i]=1;
+					}
+				} 
+			}
+
+			
+
+	})
+
+	$(document).ready(function(){
+		if(isMobile) {
+			$(".chart-scroll-wrap").find(".tip").css("left",WIDTH*0.3)
+			$(".chart-scroll-wrap").bind("touchstart",function(){
+				$(this).find(".tip").fadeOut(500)
+			})
+		}
+	})
+
+
+	
+
+
+</script>
+	<script>
+	Highcharts.setOptions({
+	lang: {
+		drillUpText: '< 返回 “{series.name}”'
+	}
+});
+var map = null,
+	geochina = 'https://data.jianshukeji.com/jsonp?filename=geochina/';
+$.getJSON(geochina + 'china.json&callback=?', function(mapdata) {
+	var data = [];
+	// 随机数据
+	Highcharts.each(mapdata.features, function(md, index) {
+		var tmp = {
+			name: "河北",
+			extra:'0.0194',
+			extra1:'7078.7',
+			extra2:'137.0',
+			value: 19
+		};
+		//if(md.properties.drilldown) {
+		//tmp.drilldown = md.properties.drilldown;
+		//}
+		data.push(tmp);
+		var hhh = {
+			name:"北京",
+			extra:'0.8278',
+			extra1:'212.6',
+			extra2:'176.0',
+			value:110
+		}
+		data.push(hhh);
+		var hhhh = {
+			name:"西藏",
+			extra:'0',
+			extra1:'101.3',
+			extra2:'0',
+			value:0
+		}
+		data.push(hhhh);
+		var hhh1 = {
+			name:"新疆",
+			extra:'0.0206',
+			extra1:'3142.3',
+			extra2:'64.7',
+			extra3:'🍎🍎🍎',
+			value:21
+		}
+		data.push(hhh1);
+		var hhh2 = {
+			name:"广西",
+			extra:'0.0082',
+			extra1:'6307.6',
+			extra2:'51.9',
+			extra3:'🍎🍎🍎',
+			value:8
+		}
+		data.push(hhh2);
+		var hhh3 = {
+			name:"甘肃",
+			extra:'0.0172',
+			extra1:'2004.5',
+			extra2:'34.4',
+			extra3:'🍎🍎🍎',
+			value:17
+		}
+		data.push(hhh3);
+		var hhh4 = {
+			name:"贵州",
+			extra:'0.0172',
+			extra1:'3220.3',
+			extra2:'55.3',
+			extra3:'🍎🍎🍎',
+			value:17
+		}
+		data.push(hhh4);
+		var hhh5 = {
+			name:"四川",
+			extra:'0.0176',
+			extra1:'6336.9',
+			extra2:'111.8',
+			extra3:'🍎🍎🍎',
+			value:18
+		}
+		data.push(hhh5);
+		var hhh6 = {
+			name:"陕西",
+			extra:'0.0183',
+			extra1:'3774.3',
+			extra2:'69.0',
+			extra3:'🍎🍎🍎',
+			value:18
+		}
+		data.push(hhh6);
+		var hhh7 = {
+			name:"云南",
+			extra:'0.0189',
+			extra1:'3510.1',
+			extra2:'66.5',
+			extra3:'🍎🍎🍎',
+			value:19
+		}
+		data.push(hhh7);
+		var hhh8 = {
+			name:"吉林",
+			extra:'0.0225',
+			extra1:'863.3',
+			extra2:'19.4',
+			value:22
+		}
+		data.push(hhh8);
+		var hhh9 = {
+			name:"湖北",
+			extra:'0.0225',
+			extra1:'5851.2',
+			extra2:'131.6',
+			value:22.5
+		}
+		data.push(hhh9);
+		var hhh10 = {
+			name:"河南",
+			extra:'0.0256',
+			extra1:'10521.3',
+			extra2:'269.3',
+			value:26
+		}
+		data.push(hhh10);
+		var hhh11 = {
+			name:"安徽",
+			extra:'0.0266',
+			extra1:'3408.7',
+			extra2:'90.6',
+			value:27
+		}
+		data.push(hhh11);
+		var hhh12 = {
+			name:"海南",
+			extra:'0.0295',
+			extra1:'1252.9',
+			extra2:'37.0',
+			value:30
+		}
+		data.push(hhh12);
+		var hhh13 = {
+			name:"江西",
+			extra:'0.0357',
+			extra1:'2803.0',
+			extra2:'100.1',
+			value:36
+		}
+		data.push(hhh13);
+		var hhh14 = {
+			name:"湖南",
+			extra:'0.0369',
+			extra1:'5627.4',
+			extra2:'207.5',
+			value:37
+		}
+		data.push(hhh14);
+		var hhh15 = {
+			name:"江苏",
+			extra:'0.0398',
+			extra1:'7383.3',
+			extra2:'293.7',
+			extra3:'🚚🚚🚚',
+			value:40
+		}
+		data.push(hhh15);
+		var hhh16 = {
+			name:"重庆",
+			extra:'0.0442',
+			extra1:'2599.3',
+			extra2:'114.9',
+			value:44
+		}
+		data.push(hhh16);
+		var hhh17 = {
+			name:"山东",
+			extra:'0.0457',
+			extra1:'12696.9',
+			extra2:'580.6',
+			extra3:'🚚🚚🚚',
+			value:46
+		}
+		data.push(hhh17);
+		var hhh18 = {
+			name:"内蒙古",
+			extra:'0.0501',
+			extra1:'1551.9',
+			extra2:'77.8',
+			value:50
+		}
+		data.push(hhh18);
+		var hhh19 = {
+			name:"宁夏",
+			extra:'0.0563',
+			extra1:'799.8',
+			extra2:'45.0',
+			value:56
+		}
+		data.push(hhh19);
+		var hhh20 = {
+			name:"浙江",
+			extra:'0.0573',
+			extra1:'3326.2',
+			extra2:'190.5',
+			value:57
+		}
+		data.push(hhh20);
+		var hhh21 = {
+			name:"青海",
+			extra:'0.0583',
+			extra1:'192',
+			extra2:'11.2',
+			value:58
+		}
+		data.push(hhh21);
+		var hhh22 = {
+			name:"广东",
+			extra:'0.0620',
+			extra1:'6291.7',
+			extra2:'390.4',
+			extra3:'🚚🚚🚚',
+			value:62
+		}
+		data.push(hhh22);
+		var hhh23 = {
+			name:"黑龙江",
+			extra:'0.0658',
+			extra1:'1115.1',
+			extra2:'73.4',
+			value:66
+		}
+		data.push(hhh23);
+		var hhh24 = {
+			name:"山西",
+			extra:'0.0663',
+			extra1:'1670.3',
+			extra2:'110.8',
+			value:66
+		}
+		data.push(hhh24);
+		var hhh25 = {
+			name:"福建",
+			extra:'0.0738',
+			extra1:'3216.1',
+			extra2:'237.2',
+			extra3:'🚚🚚🚚',
+			value:74
+		}
+		data.push(hhh25);
+		var hhh26 = {
+			name:"辽宁",
+			extra:'0.0748',
+			extra1:'3469.1',
+			extra2:'259.4',
+			value:75
+		}
+		data.push(hhh26);
+		var hhh27 = {
+			name:"天津",
+			extra:'0.5392',
+			extra1:'383.0',
+			extra2:'206.5',
+			value:100
+		}
+		data.push(hhh27);
+		var hhh28 = {
+			name:"上海",
+			extra:'0.9887',
+			extra1:'388.6',
+			extra2:'384.2',
+			extra3:'🚚🚚🚚',
+			value:120
+		}
+		data.push(hhh28);
+	});
+	map = new Highcharts.Map('container', {
+		chart:{
+			backgroundColor:'none',
+			events: {
+				drilldown: function(e) {
+					this.tooltip.hide();
+					console.log(e);
+					// 异步下钻
+					if (e.point.drilldown) {
+						var pointName = e.point.properties.fullname;
+						map.showLoading('下钻中，请稍后...');
+						// 获取二级行政地区数据并更新图表
+						$.getJSON(geochina +   e.point.drilldown + '.json&callback=?', function(data) {
+							data = Highcharts.geojson(data);
+							Highcharts.each(data, function(d) {
+								if(d.properties.drilldown) {
+									d.drilldown = d.properties.drilldown;
+								}
+								d.value = Math.floor((Math.random() * 100) + 1); // 生成 1 ~ 100 随机值
+							});
+							map.hideLoading();
+							map.addSeriesAsDrilldown(e.point, {
+								name: e.point.name,
+								data: data,
+								dataLabels: {
+									enabled: true,
+									format: '{point.name}'
+								}
+							});
+							map.setTitle({
+								text: pointName
+							});
+						});
+					}
+				},
+				drillup: function() {
+					map.setTitle({
+						text: '中国'
+					});
+				}
+			}
+		},
+		credits:{
+			enabled:false
+		},
+		exporting:{
+			enabled:false
+		},
+		title: {
+			useHTML:true,
+			text: '冷链资源集中在生鲜销售地<br>而不是生产地</br>',
+			style:{
+				fontSize:'24px',
+				fontWeight:'bold',
+				textAlign:'center',
+			},
+		},
+		//subtitle: {
+		//useHTML: true,
+		//text: '点击查看 <a href="https://www.hcharts.cn/mapdata" target="_blank">地图数据及详情</a>，注意县级数据为收费数据，如果您有需要，请 <a href="https://highcharts.com.cn/data" target="_blank">联系我们购买</a>'
+		//},
+		mapNavigation: {
+			enabled: true,
+			buttonOptions: {
+				verticalAlign: 'bottom'
+			}
+		},
+		plotOptions:{
+			series:{
+				dataLabels:{
+					enabled:true,
+					uesHTML:true,
+					format:'{point.extra3}',
+					
+				},
+			},
+		},
+		tooltip: {
+			useHTML: true,
+			borderWidth: 5,
+			style:{
+				Color:'#f2ae72',
+			},
+			headerFormat: '<table><tr><td>{point.name}</td></tr>',
+			pointFormat: '<tr><td>全称:</td><td>{point.properties.fullname}</td></tr>' + '<tr><td>冷库库容量🚚:</td><td>{point.extra2}万吨</td></tr>'+ '<tr><td>生鲜农产品产量🍎:</td><td>{point.extra1}万吨</td></tr>'+'<tr><td>冷库与农产品容量之比:</td><td>{point.extra}</td></tr>',
+			footerFormat: '</table>'
+		},
+		colorAxis: {
+			min: 0,
+			minColor: '#fff',
+			maxColor: '#4c799e',
+			labels:{
+				enabled:false,
+				style:{
+					"color":"black","fontWeight":"bold"
+				}
+			}
+		},
+		series: [{
+			data: data,
+			mapData: mapdata,
+			joinBy: 'name',
+			name: '中国地图',
+			states: {
+				hover: {
+					color: '#c2ddd7'
+				}
+			}
+		}]
+	});
+});
+</script>
+    <script>
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var controller = new ScrollMagic.Controller();
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger1",
+                        duration: 1300,
+                        //offset: 300,
+                        triggerHook: 0.05,
+                    })
+                    .setPin("#pin1")
+                    // .addIndicators({
+                    //     name: "1"
+                    // })
+                    .addTo(controller);
+            }
+        });
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var controller = new ScrollMagic.Controller();
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger2",
+                        triggerHook: 0.1,
+                    })
+                    .setClassToggle(".before_1", "after")
+                    // .addIndicators({
+                    //     name: "2"
+                    // })
+                    .addTo(controller);
+            }
+        });
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var controller = new ScrollMagic.Controller();
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger3",
+                        triggerHook: 0.2,
+                    })
+                    .setClassToggle(".before_2", "after")
+                    .addTo(controller);
+            }
+        });
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var controller = new ScrollMagic.Controller();
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger4",
+                        triggerHook: 0.2,
+                    })
+                    .setClassToggle(".before_3", "after")
+                    .addTo(controller);
+            }
+        });
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var controller = new ScrollMagic.Controller();
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger100",
+                        triggerHook: 0.2,
+                    })
+                    .setClassToggle(".before_4", "after")
+                    .addTo(controller);
+            }
+        });
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var controller = new ScrollMagic.Controller();
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger5",
+                        duration: 1500,
+                        triggerHook: 0.05,
+                    })
+                    .setPin("#pin2")
+                    // .addIndicators({
+                    //     name: "part 1"
+                    // })
+                    .addTo(controller);
+            }
+        });
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var flightpath = {
+                    entry: {
+                        type: 'soft',
+                        curviness: 2.2,
+                        autoRotate: true,
+                        values: [{
+                            x: 0,
+                            y: 0
+                        }, {
+                            x: 150,
+                            y: 0
+                        }, {
+                            x: 200,
+                            y: -100
+                        }, {
+                            x: 190,
+                            y: -105
+                        }, ]
+                    }
+
+                };
+                // init controller
+                var controller = new ScrollMagic.Controller();
+                // create tween
+                var tween = new TimelineMax()
+                    .add(TweenMax.to($("#ship"), 3, {
+                        css: {
+                            bezier: flightpath.entry
+                        },
+                        ease: Power1.easeInOut
+                    }));
+
+                // build scene
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger5",
+                        duration: 1500,
+                        triggerHook: 0.05,
+                    })
+                    .setTween(tween)
+                    .addTo(controller);
+            }
+        });
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var controller = new ScrollMagic.Controller();
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger6",
+                        duration: 1500,
+                        triggerHook: 0.05,
+                    })
+                    .setPin("#pin3")
+                    // .addIndicators({
+                    //     name: "part 2"
+                    // })
+                    .addTo(controller);
+            }
+        });
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var flightpath = {
+                    entry: {
+                        type: 'soft',
+                        curviness: 2.2,
+                        autoRotate: true,
+                        values: [{
+                            x: 0,
+                            y: 0
+                        }, {
+                            x: 50,
+                            y: -50
+                        }, {
+                            x: 50,
+                            y: -120
+                        }, {
+                            x: 0,
+                            y: -200
+                        }, {
+                            x: -10,
+                            y: -200
+                        }]
+                    }
+
+                };
+                // init controller
+                var controller = new ScrollMagic.Controller();
+                // create tween
+                var tween = new TimelineMax()
+                    .add(TweenMax.to($("#ship_2"), 3, {
+                        css: {
+                            bezier: flightpath.entry
+                        },
+                        ease: Power1.easeInOut
+                    }));
+
+                // build scene
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger6",
+                        duration: 1500,
+                        triggerHook: 0.05,
+                    })
+                    .setTween(tween)
+                    .addTo(controller);
+            }
+        });
+
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var controller = new ScrollMagic.Controller();
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger7",
+                        duration: 1500,
+                        triggerHook: 0.05,
+                    })
+                    .setPin("#pin4")
+                    // .addIndicators({
+                    //     name: "5"
+                    // })
+                    .addTo(controller);
+            }
+        });
+        $(function() {
+            if ($(window).width() >= 1000) {
+                var flightpath = {
+                    entry: {
+                        type: 'soft',
+                        curviness: 1.2,
+                        autoRotate: true,
+                        values: [{
+                            x: 0,
+                            y: 0
+                        }, {
+                            x: 10,
+                            y: -10
+                        }, {
+                            x: 0,
+                            y: -130
+                        }, {
+                            x: 100,
+                            y: -150
+                        }, {
+                            x: 240,
+                            y: -140
+                        }, {
+                            x: 241,
+                            y: -150
+                        }]
+                    }
+
+                };
+                // init controller
+                var controller = new ScrollMagic.Controller();
+                // create tween
+                var tween = new TimelineMax()
+                    .add(TweenMax.to($("#ship_3"), 3, {
+                        css: {
+                            bezier: flightpath.entry
+                        },
+                        ease: Power1.easeInOut
+                    }));
+
+                // build scene
+                var scene = new ScrollMagic.Scene({
+                        triggerElement: "#trigger7",
+                        duration: 1500,
+                        triggerHook: 0.05,
+                    })
+                    .setTween(tween)
+                    .addTo(controller);
+            }
+        });
+        // $(function() {
+        //     var controller = new ScrollMagic.Controller();
+        //     var scene = new ScrollMagic.Scene({
+        //             triggerElement: "#trigger6",
+        //             triggerHook: 0.1,
+        //         })
+        //         .setClassToggle(".before_map", "after_map")
+        //         // .addIndicators({
+        //         //     name: "hidden"
+        //         // })
+        //         .addTo(controller)
+        //         .on("enter", function() {
+        //             scene = scene.destroy();
+        //         });
+        // });
+		
+    </script>
+ 
+		<script>
+	Highcharts.setOptions({
+	colors: ['#ee3926','#e8501a', '#f26e22', '#e79b41', '#f2d338', '#fff263', '#cbf61e', '#c6e72d', '#a5d341', '#8bbf56','#458c3a','#045922']
+});
+Highcharts.chart('container1', {
+	chart: {
+		type: 'bubble',
+		backgroundColor:'none',
+		zoomType: 'xy'
+	},
+	title: {
+		useHTML:true,
+		text: '用户好评聚焦“<b>新鲜</b>”，差评多因“<b>客服</b>”问题',
+		style:{
+			fontSize:'15px',
+		},
+	},
+	legend:{
+		enabled:false
+	},
+	credits:{
+		enabled:false
+	},
+	exporting:{
+		enabled:false
+	},
+	xAxis: {
+		min:5,
+		max:25,
+		gridLineWidth:0,
+		tickLength:0,
+		tickWidth:0,
+		labels: {
+			enabled: false
+		}
+	},
+	yAxis: {
+		min:-10,
+		max:1601,
+		gridLineWidth:0,
+		tickInterval:35,
+		tickLength:0,
+		tickWidth:0,
+		title: {
+			text:null
+		},
+		labels: {
+			enabled: false
+		}
+	},
+	tooltip: {
+		shared: true,
+		useHTML: true,
+		//positioner: function () {
+			//return { x: 300, y: 160 }
+		//},
+		borderWidth: 3,
+		//zIndex:600,
+		pointFormat:'{point.extra}'
+		
+	},
+	plotOptions:{
+		series:{
+			dataLabels:{
+				enabled:true,
+				format:'{point.name}',
+				//filter:{
+				//property:'x',
+				//operator:'>',
+				//value:0
+				//},
+				x:-50,
+				y:0,
+				style:{
+					color: 'black',
+					textOutline: 'none',
+					fontSize:'12px'
+				}
+			},
+		},
+	},
+	series: [{
+		name:'新鲜',
+		// 每个气泡包含三个值，x，y，z；其中 x，y用于定位，z 用于计算气泡大小
+		data: [{
+			name:'新鲜',
+			x:9,
+			y:1400,
+			z:1350,
+			extra:'<br>该词词频：<b>1350</b></br><br><b>精选评论：</b></br><br><b>用户一：</b>三文鱼🍣<b>巨新鲜</b>，会常常光顾的，谢谢你们的好食材，建议多几种酱油和芥末一起卖，大家会喜欢的。</br><br><b>用户二：</b>虽然整体比菜市场的贵，但是新鲜度还可以的，而且会有专人打电话给你告诉你今天哪个新鲜哪个品种不要买，所以一直给我印象都很负责，<b>蔬菜是很新鲜的，肉嘛，见仁见智咯！水果时好时坏不太稳定，送水的话很给力！鱼还可以，挺新鲜。</b></br><br><b>用户三：</b>盒马东西新鲜、质量好。服务更是一流，是<b>生鲜类的海底捞</b>！为你们加油💪点赞👍！</br><br><b>用户四：</b>经孩子介绍，第一次登陆盒马购物，<b>这里新鲜货品挺多</b>，免得我在非常时期去超市，挺方便。待收到货后再给货物做评论。</br>',
+		}]
+	}, {
+		name:'配送',
+		// 每个气泡包含三个值，x，y，z；其中 x，y用于定位，z 用于计算气泡大小
+		data: [{
+			name:'配送',
+			x:9,
+			y:1080,
+			z:777,
+			extra:'<br>该词词频：<b>777</b></br><br><b>精选评论：</b></br><br><b>用户一：</b>销售人员热情介绍，<b>配送师傅更给力</b>，因本人是孕妇开车外出停车比较远，配送师傅一直送到车上，在此表示非常感谢🙏！</br><br><b>用户二：</b>送货上门，没电梯也不用担心！配送及时，经常有优惠，而且都是实体店比较放心。<b>老人家买重的生活用品省心多了。</b></br><br><b>用户三：</b>第一次在APP上下单，很方便。<b>配送人员很尽责，服务周到。</b>水果蔬菜都很新鲜，对年轻上班一族帮助很大。谢谢</br>',
+		}]
+	},
+			 {
+				 name:'实惠',
+				 // 每个气泡包含三个值，x，y，z；其中 x，y用于定位，z 用于计算气泡大小
+				 data: [{
+					 name:'实惠',
+					 x:9,
+					 y:815,
+					 z:611,
+					 extra:'<br>该词词频：<b>611</b></br><br><b>精选评论：</b></br><br><b>用户一：</b>丰富、菜品多样、<b>实惠</b>、不错！</br><br><b>用户二：</b>继续优惠吧！<b>榴莲一天买三个了</b>，哈哈哈</br><br><b>用户三：</b>确实方便实惠省了不少后顾之忧，家庭小聚，朋友聚会有面子又实惠，感谢每日优鲜，<b>让我们真正的吃到了实惠。</b></br>',
+				 }]
+			 },
+			 {
+				 name:'质量',
+				 // 每个气泡包含三个值，x，y，z；其中 x，y用于定位，z 用于计算气泡大小
+				 data: [{
+					 name:'质量',
+					 x:9,
+					 y:570,
+					 z:570,
+					 extra:'<br>该词词频：<b>570</b></br><br><b>精选评论：</b></br><br><b>用户一：</b>省得开车跑去超市挑选商品，<b>而且质量又有保障</b></br><br><b>用户二：</b>买的榴莲超赞的，<b>肉肉好多，很糯很甜</b>…给同事介绍，好app大家一起用</br><br><b>用户三：</b>每日优鲜<b>食品材质好，味道棒棒的</b>，我们全家人都喜欢吃每日优鲜的食物，并推荐给朋友，要他们也一起用每日优鲜品牌的食物，给每日优鲜点赞👍。</br>',
+				 }]
+			 },
+			 {
+				 name:'方便',
+				 // 每个气泡包含三个值，x，y，z；其中 x，y用于定位，z 用于计算气泡大小
+				 data: [{
+					 name:'方便',
+					 x:9,
+					 y:330,
+					 z:563,
+					 extra:'<br>该词词频：<b>563</b></br><br><b>精选评论：</b></br><br><b>用户一：</b>真的很方便，<b>有一些商品比实体店和其他平台便宜的多</b>。参与的店家都能够做到服务周到、售后积极。希望越来越多的商家能参与进来，那样的话会有更多的消费选择。</br><br><b>用户二：</b>的确很方便，有时候不想出门，或者身体出不了门的，<b>这种方式的确好</b>……不过还是要多发些劵下来……哈哈哈，尽量给我们居民多优惠些……那就更好不过了……菜贵啊！o(^▽^)o</br><br><b>用户三：</b>便宜实惠还<b>方便</b>。祝天下的母亲节日快乐！</br>',
+				 }]
+			 },
+			 {
+				 name:'服务',
+				 // 每个气泡包含三个值，x，y，z；其中 x，y用于定位，z 用于计算气泡大小
+				 data: [{
+					 name:'服务',
+					 x:9,
+					 y:135,
+					 z:44,
+					 extra:'<br>该词词频：<b>44</b></br><br><b>精选评论：</b></br><br><b>用户一：</b>在这个疫情发生的时候，感谢你们默默地为百姓生活带来的方便，<b>让人民群众在家中足不出户 就能享受到美味佳肴，和生活必需品</b>……总之，每次收到快递的同时，感激、感谢🙏的心情无以言表。</br><br><b>用户二：</b><b>服务员态度很好</b>，环境卫生管理得不错，商品也丰富质量保证。</br><br><b>用户三：</b>盒马效率很高，<b>配送服务态度特别好</b>，种类齐全，非常赞👍</br><br><b>用户四：</b>天冷了 有时候就不想在出门吃饭了，但是又觉得点外卖天天都那几样，休息的时候就可以在这里买一些菜。<b>好自己做一些自己的菜</b>，很快就送到，东西也很便宜，点赞👍<br>',
+				 }]
+			 },
+			 
+			 
+			 {
+				 name:'质量',
+				 // 每个气泡包含三个值，x，y，z；其中 x，y用于定位，z 用于计算气泡大小
+				 data: [{
+					 name:'质量',
+					 x:22,
+					 y:1400,
+					 z:101,
+					 extra:'<br>该词词频：<b>101</b></br><br><b>精选评论：</b></br><br><b>用户一：</b>买了鸡肉，鸡肉带色；买了一箱橙子，全部不新鲜；还有烂的；买了莲藕，莲藕也烂；<b>质量把控极其不严格；严重怀疑食物安全性。</b></br><br><b>用户二：</b>每次买水果生鲜总得有那么几个发霉的，不知道冷链品控是怎么做的，<b>非常不专业，质量堪忧！</b></br><br><b>用户三：</b>买的草莓发霉，买的带鱼是臭的，<b>这就是你们的质量监控！</b></br>',
+				 }]
+			 }, 
+			  {
+				 name:'时间',
+				 // 每个气泡包含三个值，x，y，z；其中 x，y用于定位，z 用于计算气泡大小
+				 data: [{
+					 name:'时间',
+					 x:22,
+					 y:1235,
+					 z:206,
+					 extra:'<br>该词词频：<b>206</b></br><br><b>精选评论：</b></br><br><b>用户一：</b>送鲫鱼活动观感极差，磨灭了我对叮咚积攒的好感。整个过年期间光在叮咚买菜买了三四千吧，<b>但是那个鲫鱼浪费时间仍然攒不到</b>，现在根本不想用这个app了。</br><br><b>用户二：</b>东西不好也就算了！<b>连送货时间都不能保证！</b>祝你们关门大吉。</br><br><b>用户三：</b>这是我见过最垃圾的购物软件，<b>等待时间长就不说了，还丢三落四的</b>。</br>',
+				 }]
+			 },
+			 {
+				 name:'垃圾',
+				 // 每个气泡包含三个值，x，y，z；其中 x，y用于定位，z 用于计算气泡大小
+				 data: [{
+					 name:'垃圾',
+					 x:22,
+					 y:995,
+					 z:221,
+					 extra:'<br>该词词频：<b>221</b></br><br><b>精选评论：</b></br><br><b>用户一：</b>真的垃圾，这个软件提前订购超时我也理解，特殊时期。但是问客服能否给个大概送达的时间区间，特别傲慢的回给不了不知道什么时候送到。</br><br><b>用户二：</b>上午在叮咚上买了蛏子。吃过一小时就开始腹痛。去医院检查是食物中毒。垃圾软件，千万别在上面买生鲜。</br><br><b>用户三：</b>垃圾软件，天天给手机发垃圾短信，还用不同的号发，都没办法屏蔽。</br>',
+				 }]
+			 },
+			 {
+				 name:'体验',
+				 // 每个气泡包含三个值，x，y，z；其中 x，y用于定位，z 用于计算气泡大小
+				 data: [{
+					 name:'体验',
+					 x:22,
+					 y:750,
+					 z:294,
+					 extra:'<br>该词词频：<b>294</b></br><br><b>精选评论：</b></br><br><b>用户一：</b>第一次买，120块的东西，少送一半过来，连5kg的米都能漏送，还不知道投诉能不能补送，<b>体验真差！！！！！</b></br><br><b>用户二：</b><b>这是近几年体验最差的一款软件</b>，客服永远联系不上，申请售后服务超过24小时没人理你。</br><br><b>用户三：</b>App体验感很差！新人券一张都用不了，<b>咨询客服说是附近没有站点所以用不了～问哪里有站点说不知道！</b></br><br><b>用户四：</b>买的樱桃，是放了很久的，软得不行的，<b>总的来说，体验越来越差。</b></br>',
+				 }]
+			 },
+			{
+				 name:'配送',
+				 // 每个气泡包含三个值，x，y，z；其中 x，y用于定位，z 用于计算气泡大小
+				 data: [{
+					 name:'配送',
+					 x:22,
+					 y:485,
+					 z:1167,
+					 extra:'<br>该词词频：<b>1167</b></br><br><b>精选评论：</b></br><br><b>用户一：</b>选择了配送时间，<b>延迟了两个小时还没送</b>，电话客服联系不到，在线人工客服又不回复。</br><br><b>用户二：</b>物美离我家1公里左右 无接触配送点 离我800米 <b>我的6块钱配送费 就送200米。</b></br><br><b>用户三：</b>就怕傍晚下班想吃的菜没有,结果等到了即将配送的时间,想吃的菜自动退款了.<b>因为没菜了,那我还预定啥？我直接到家买吧。</b></br><br><b>用户四：</b>就因为在<b>配送区边缘，接单后随意取消</b>，送到指定地点自取也不行，问题是之前同一地址送了，还删了我的记录说没这回事！</br>',
+				 }]
+			 },
+			 
+			 {
+				 name:'客服',
+				 // 每个气泡包含三个值，x，y，z；其中 x，y用于定位，z 用于计算气泡大小
+				 data: [{
+					 name:'客服',
+					 x:22,
+					 y:135,
+					 z:1540,
+					 extra:'<br>该词词频：<b>1540</b></br><br><b>精选评论：</b></br><br><b>用户一：</b><b>客服永远联系不上</b>，无论是电话客服还是在线客服。</br><br><b>用户二：</b>里面bug一大堆。<b>客服还不解决，还怪我们客户</b>。一个小小优惠券bug还不修复，还怪我们。</br><br><b>用户三：</b>一个鱼头冷冻的下半部分烂了！你在逗我，<b>找客服，客服回答给您一张6元补偿卷可以嘛?问题这个鱼头怎么吃？</b>你给我一张补偿卷有啥用？能吃吗。</br>',
+				 }]
+			 },
+			 
+			]
+});
+
+	// loading Preloader
+	$(window).on('load', function() {
+		$("#preloader").delay(600).fadeOut();
+	});
+
+	// 侧边导航
+
+	  //导航点击弹出层
+		$("#nav-button-1").click(function(){
+     $("#the-sidebar").show();
+     $("#nav-button-1").fadeOut(400);
+     $("#back-to-top").fadeOut(400);
+  })
+  $("#nav-button-2").click(function(){
+     $("#the-sidebar").hide();
+     $("#nav-button-1").fadeIn(400);
+     $("#back-to-top").fadeIn(400);
+
+	})
+	
+		// 锚点跳转
+		$("a[href^='#']").on('click', function(e) {
+		e.preventDefault();
+		var hash = this.hash;
+		$('html, body').animate({
+			scrollTop: $(this.hash).offset().top
+		}, 1200);
+	});
+
+	//点击返回顶部
+	$('#back-to-top').on('click',function(e){
+		$('body,html').animate({
+			scrollTop:0
+		},600)
+	})
+
+
+
+
+</script>
+		
+</body>
+
+</html>
