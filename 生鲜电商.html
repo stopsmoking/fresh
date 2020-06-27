@@ -47,126 +47,6 @@
 	
 	
 	</head>
-	<style type="text/css">
-* {padding: 0;margin: 0;font-family: "微软雅黑";font-size: 14px;}
-ul,li {list-style: none;}
-a {text-decoration: none;color: black;}
-.box{width: 800px;height: 400px;margin: 20px auto;overflow: hidden;position: relative;}
-.box-1 ul{}
-.box-1 ul li{width: 800px;height: 400px;position: relative;overflow: hidden;}
-.box-1 ul li img{display:block;width: 800px; height: 400px;}
-.box-1 ul li h2{position: absolute;left: 0;bottom: 0;height: 40px;width:300px;background: rgba(125,125,120,.4);text-indent: 2em;
-				padding-right:500px ;font-size: 15px;line-height: 40px;text-overflow: ellipsis;overflow: hidden;
-				white-space: nowrap;font-weight: normal;color: ghostwhite}
-.box-2{position: absolute;right: 10px;bottom: 14px;}
-.box-2 ul li{float:left;width: 12px;height: 12px;overflow: hidden; margin: 0 5px; border-radius: 50%;
-				background: rgba(0,0,0,0.5);text-indent: 100px;cursor: pointer;}
-.box-2 ul .on{background: rgba(255,255,255,0.6);}
-.box-3 span{position: absolute;color: white;background: rgba(125,125,120,.3);width: 50px;height: 80px;
-				top:50%; font-family: "宋体";line-height: 80px;font-size:60px;margin-top: -40px;
-				text-align: center;cursor: pointer;}
-.box-3 .prev{left: 10px;}
-.box-3 .next{right: 10px;}
-.box-3 span::selection{background: transparent;}
-.box-3 span:hover{background: rgba(125,125,120,.8);}
-</style>
-
-<script type="text/javascript">
-window.onload = function(){
-	function $(param){
-		if(arguments[1] == true){
-			return document.querySelectorAll(param);
-		}else{
-			return document.querySelector(param);
-		}
-	}
-	var $box = $(".box");
-	var $box1 = $(".box-1 ul li",true);
-	var $box2 = $(".box-2 ul");
-	var $box3 = $(".box-3");
-	var $length = $box1.length;
-	
-	var str = "";
-	for(var i =0;i<$length;i++){
-		if(i==0){
-			str +="<li class='on'>"+(i+1)+"</li>";
-		}else{
-			str += "<li>"+(i+1)+"</li>";
-		}
-	}
-	$box2.innerHTML = str;
-	
-	var current = 0;
-	
-	var timer;
-	timer = setInterval(go,1000);
-	function go(){
-		for(var j =0;j<$length;j++){
-			$box1[j].style.display = "none";
-			$box2.children[j].className = "";
-		}
-		if($length == current){
-			current = 0;
-		}
-		$box1[current].style.display = "block";
-		$box2.children[current].className = "on";
-		current++;
-	}
-	
-	for(var k=0;k<$length;k++){
-		$box1[k].onmouseover = function(){
-			clearInterval(timer);
-		}
-		$box1[k].onmouseout = function(){
-			timer = setInterval(go,1000);
-		}
-	}
-	for(var p=0;p<$box3.children.length;p++){
-		$box3.children[p].onmouseover = function(){
-			clearInterval(timer);
-		};
-		$box3.children[p].onmouseout = function(){
-			timer = setInterval(go,1000);
-		}
-	}
-	
-	for(var u =0;u<$length;u++){
-		$box2.children[u].index  = u;
-		$box2.children[u].onmouseover = function(){
-			clearInterval(timer);
-			for(var j=0;j<$length;j++){
-				$box1[j].style.display = "none";
-				$box2.children[j].className = "";
-			}
-			this.className = "on";
-			$box1[this.index].style.display = "block";
-			current = this.index +1;
-		}
-		$box2.children[u].onmouseout = function(){
-			timer = setInterval(go,1000);
-		}
-	}
-	
-	$box3.children[0].onclick = function(){
-		back();
-	}
-	$box3.children[1].onclick = function(){
-		go();
-	}
-	function back(){
-		for(var j =0;j<$length;j++){
-			$box1[j].style.display = "none";
-			$box2.children[j].className = "";
-		}
-		if(current == 0){
-			current = $length;
-		}
-		$box1[current-1].style.display = "block";
-		$box2.children[current-1].className = "on";
-		current--;
-	}
-}
-</script>
 
 <style>
 	p{
@@ -207,7 +87,7 @@ window.onload = function(){
 
 	<!-- 这是标题 -->
 	<header>
-		<div id="title" class="re_title1" style="background:url(images/header1.jpg);background-size:contain;background-repeat:no-repeat;width: auto;height: 400px" >
+		<div id="title" class="re_title1" style="background:url(images/header1.jpg);background-size:cover" >
 			
 			<!-- <h1 class="header_h1">生鲜电商的“新鲜”升级之路</h1>-->
 			
@@ -222,14 +102,14 @@ window.onload = function(){
     <div class="section">
 		<p>6月12号，北京最大农产品批发市场新发地出现新冠阳性患者，引发一波“抢菜”大潮：多个生鲜电商APP上的生鲜产品被抢购一空，还有网友晒出超市空荡荡的菜架照片。</p>
 				<br>
-		<img class="pic1" src="images/导语配图.jpg" style="width: px;height: 450px">
+		<img class="pic1" src="images/导语配图.jpg" style="width:400px;height: 250px">
 		<p style="font-family: '楷体';text-align: center;font-size: 15px">网友晒出的空荡荡的菜价 @coco家的王小黄  </p>
 		<br>
 		<p>“抢菜”对于刚刚经历过居家抗疫的人来说并不陌生。漫长的疫情期间，千万家庭“被迫”成为了线上买菜的新用户，抢购便宜又新鲜的水果蔬菜成为许多人每天都要做的事。</P>
 
 		<p>与其他在疫情期间陷入萧条的行业相比，线上用户的激增使得生鲜电商在疫情期间显得异常火热，市场渗透率和成交量急剧提升，引人注目。</p>
-		<p>然而，随着疫情进入下半场，“抢菜群众”不再疯狂，人们在对生鲜电商的关注逐渐转变为对于生鲜电商的未来的猜测。</p>
-		<p>疫情期间千万级别的活跃度究竟是行业天花板，还是未来沉淀的发展起点？鲜电商多年探索的保鲜供应链、仓配模式又能否适应人们升级的需求？</p>
+		<p>然而，随着疫情进入下半场，“抢菜群众”不再疯狂，人们对生鲜电商的关注逐渐转变为对于生鲜电商的未来的猜测。</p>
+		<p>疫情期间千万级别的活跃度究竟是行业天花板，还是未来沉淀的发展起点？生鲜电商多年探索的保鲜供应链、仓配模式又能否适应人们升级的需求？</p>
 		<br>
 		<br>
 	</div>
@@ -238,39 +118,37 @@ window.onload = function(){
 <!--第一部分：疫情之后用户流失：不够新鲜-->
 	<header  >
 		<!-- 标题 -->
-		<div id="title" class="re_title1" style="background:url(images/标题一.jpg);background-size:contain;background-repeat:no-repeat;">
+		<div id="title" class="re_title1" style="background:url(images/标题一.jpg);background-size:cover;background-repeat:no-repeat;">
 			<h1 class="header_h1" id="trigger-chapter1">疫后用户流失:<br>不够新鲜</br></h1>
 			<!-- <div id="scroller" title="Scroll Down"></div> -->
 		</div>
 		<!-- 导语 -->
 		<div id="lead">
-			<p style="font-family: '楷体';text-align: left;color:#EAE4E6">张女士每天在盒马上购买一百元左右的生鲜，到现在累计花费超过万元。“方便是方便，就是东西送过来不知道好差。像活虾买过来有时候活蹦乱跳的，有时候买过来有一半是死的。”<br><audio controls src="张女士.mp3" style="width: 0.01px;height: 0.5px;background-color:'none';"></audio></p>
+			<p style="font-family: '楷体';text-align: left;color:#000000">“方便是方便，就是东西送过来不知道好差。像活虾买过来有时候活蹦乱跳的，有时候买过来有一半是死的。”——张女士<br><audio controls src="张女士.mp3" style="width: 0.01px;height: 0.5px;background-color:#FFFEFD;"></audio></p>
 		</div>
 	</header>
-	<br>
-    <br>
-    <div class="section"><p><span class="highlight">居住在北京的张女士自3月起便一直在盒马等生鲜电商平台买菜，目前花费已超过万元。但她仍然期望去菜场买菜，“目前觉得带个孩子到菜场不太安全，只能在生鲜电商上买。如果疫情好一点的话，还会去菜场买菜。”</span></p>
-			<p>林女士也表达了回归线下的意愿。无法亲自挑选菜品让林女士觉得线上买菜的新鲜度差强人意，因此疫情好转后，她几乎不再打开手机里的盒马、每日优鲜、京东到家等APP。“当时买的香蕉，要么就过生，要么就过熟。然后青菜品相也不是那么好，相比之下超市的菜品更新鲜一些。”</p>
 
+    <div class="section"><p>居住在北京的张女士自3月起便一直在盒马等生鲜电商平台买菜，目前花费已超过万元。但她仍然期望去菜场买菜，“目前觉得带个孩子到菜场不太安全，<span class="highlight">只能在生鲜电商上买。如果疫情好一点的话，还会去菜场买菜。”</span></p>
+			<p>林女士也表达了回归线下的意愿。无法亲自挑选菜品让林女士觉得线上买菜的新鲜度差强人意，因此疫情好转后，她几乎不再打开手机里的盒马、每日优鲜、京东到家等APP。“当时买的香蕉，要么就过生，要么就过熟。然后青菜品相也不是那么好，相比之下超市的菜品更新鲜一些。”</p>
+<br>
 	</div>
     <div class="main_wp">
         <div class="col-sm-6 left" style="float: left">
             
-         
-			<p><span class="highlight">在春节和疫情的双重作用下，生鲜电商的需求在2月达到顶峰。</span></p><p>QuestMobile 数据显示，生鲜到家在春节后的一个月 MAU（月活跃用户）接近 7 000 万，比2019 年同期增长 59%。</p>	
+			<p><span class="highlight">在春节和疫情的双重作用下，生鲜电商的需求在2月达到顶峰。</span></p><p>	<a href="https://www.iyiou.com/breaking/44206.html" style="color:rgba(150, 154, 100)"> QuestMobile 数据显示，</a>生鲜到家在春节后的一个月 MAU（月活跃用户）接近 7 000 万，比2019 年同期增长 59%。</p>	
 		<p>然而随着3、4月份疫情好转，复工复产提上日程，各大生鲜电商平台活跃用户数均有不同程度的下降。人们不再只依赖线上渠道买菜，许多需求从线上转回线下。</p>
 			<p>在这场转移中，单纯依靠线上订单的每日优鲜和叮咚买菜曾经获得了领跑行业的用户增量，但疫情过后也遭遇了较大幅度的用户流失；对于大多数兼营线上线下两个渠道的生鲜电商（如永辉生活、多点等）来说，用户的流失现象则较为缓和。</p>
      </div>
 		<div class="col-sm-6 right" style="float:left">
-     <img style="padding: 10px" src="images/透明数据图/月活变化（透明）-01.png">
+     <img style="padding: 10px" src="images/透明数据图/月活变化test-01.png">
 			 <p style="font-family: '楷体';text-align: center;font-size: 15px">各模式下较大规模的生鲜电商APP<br>月度活跃用户数均在疫情爆发期后有所回落</br> </p>	 
  </div>
 
 		<div class="section"><br><p>每日优鲜CFO王珺在接受36氪采访时表示：“疫情让生鲜线上渗透率加速推进了两年。”高峰过后，线上用户的“退潮”成为生鲜电商面临的第一大难题。对生鲜电商来说，疫情期间大量涌入的流量无异于一次压力测试，而这场测试的重点，就是生鲜产品的新鲜度。
 			</p>
-			<p>“方便是方便，就是东西送过来不知道好差。像活虾买过来有时候活蹦乱跳的，有时候买过来有一半是死的。”张女士表示，生鲜电商平台虽然会采取一定的保鲜措施，<span class="highlight">但“保不好鲜”的问题依然存在。</span></p>
+			<p>对比不同平台的新鲜度后，张女士现在多在拼多多上买蔬菜，在盒马上买海鲜更多。她认为，虽然生鲜电商平台会采取一定的保鲜措施，<span class="highlight">但“保不好鲜”的问题依然存在。</span></p>
 		<br>
-        <img class="pic1" src="images/配图/第一部分-张女士从盒马上买的菜（受访者供图）.jpg">
+        <img class="pic1" src="images/配图/第一部分-张女士从盒马上买的菜（受访者供图）.jpg" style="width:400px;hight:250px">
 		<p style="font-family: '楷体';text-align: center;font-size: 15px">居住在海边的张女士喜欢买鱼虾等海鲜，“鱼虾会处理得很干净，菜市场不会，我想这些可能也有保鲜的东西放进去。”(受访者供)  </p>
 		<br>
 		
@@ -284,7 +162,7 @@ window.onload = function(){
 
 <div class="col-sm-6 right" style="float:left">
     <p>跟张女士一样关注“新鲜”的用户还有很多。通过对5个主流生鲜电商应用在苹果商店一年间的一万八千多条评论进行分析，可以发现评分呈现出两极分化的趋势——1分和5分的数量占评论总数的九成以上。</p>
-	<p>“新鲜”和“配送”分别是好评和差评中最常出现的词语。</p>
+	<p><span class="highlight">“新鲜”和“客服”分别是好评和差评中最常出现的词语。</span></p>
 	<p>评论中的好评主要集中在商品品质的新鲜，包括蔬菜是否“水灵”，海鲜是否“现抓”，水果的品质口感等；差评则集中于配送服务，包括超过范围和时间，不满客服对产品质量不佳的处理，以及配送过程中保鲜措施不到位等问题。</p>
 	<p>“配送时间长肯定品质就会下降，”林女士曾经因为配送问题给某电商平台打过差评，“生鲜这种东西它挺容易坏的，特别是在夏天的时候，配送时间长了打开袋子看到都是化的水珠，心里就会犯嘀咕。”</p>
 </div>
@@ -293,10 +171,14 @@ window.onload = function(){
 
 	<div class="section">
 		<br>
-		<p>归根结底，“新鲜”是用户最为关注的核心问题。如果说疫情期间人们的选择余地不那么大，只能通过线上渠道买菜，那么回归正常生活后，生鲜产品是否“新鲜”就成为生鲜电商能否留住用户的关键一环。</p>
+		<p>归根结底，<span class="highlight">“新鲜”是用户最为关注的核心问题</span>。如果说疫情期间人们的选择余地不那么大，只能通过线上渠道买菜，那么回归正常生活后，生鲜产品是否“新鲜”就成为生鲜电商能否留住用户的关键一环。</p>
 	 <p>安徽消保委针对生鲜电商平台做的一项调查显示，生鲜电商平台商品的新鲜度参差不齐，规模较大的商超平台在商品品质和新鲜度方面做的更好。
 	   </p>
-		<p>保持生鲜产品的新鲜并不是一件容易事。从产地到用户手中，生鲜产品的保鲜需要耗费大量的人力物力财力。就我国目前的冷链物流情况来说，规模较小的生鲜电商靠自己的力量完成全流程的保鲜几乎不可能。如何有效进行生鲜流通过程中的保鲜，一直是生鲜电商从业者着力研究的问题。</p>
+		<br>
+		<img class="pic1" src="images/配图/第一部分-大润发配送货架.jpg" style="width:400px;hight:250px">
+		<p style="font-family: '楷体';text-align:left;font-size: 15px;padding: 20px">图注：扬州一家大润发的生鲜电商经理要求员工认真挑选线上顾客的商品，“因为我们的顾客没有来，我们要站在他的角度去挑选商品，通过员工的分拣来满足客户。”</p>
+		<br>
+		<p><span class="highlight">保持生鲜产品的新鲜并不是一件容易事。从产地到用户手中，全流程采用冷链保鲜困难重重。如何有效进行生鲜流通过程中的保鲜，一直是生鲜电商从业者着力研究的问题。</p>
 		<br>
 	</div>
     
@@ -309,7 +191,7 @@ window.onload = function(){
 			<!-- <div id="scroller" title="Scroll Down"></div> -->
 		</div>
 		<!-- 导语 -->
-		<div id="lead"><p style="font-family: '楷体';text-align: left;color:#EAE4E6">“没有冷藏车的话，可能是40%的腐坏，而有冷藏车的话，可能只是5%的腐坏。”物流从业者李茂元说。<br><audio controls src="关于成本和冷链资源分布.mp3" style="width: 0;height: 0;background-color:'none',"></audio></p></div>
+		<div id="lead"><p style="font-family: '楷体';text-align: left;color:#000000">“没有冷藏车的话，可能是40%的腐坏，而有冷藏车的话，可能只是5%的腐坏。”———物流从业者李茂元<br><audio controls src="关于成本和冷链资源分布.mp3" style="width: 0;height: 0;background-color:'#FFFEFD',"></audio></p></div>
 	</header>
 <div class="section">
 	<br>
@@ -321,63 +203,28 @@ window.onload = function(){
 	<div class="section">
 		    <h3 style="text-align: center"><span style="font-weight: bolder">第一公里：从产地开始的冷链资源缺失</span></h3>
 		<p>生鲜产品的保鲜从采摘下的第一秒就已经开始。</p>
-		<p>《2019农产品产地冷链研究报告》显示，“冷库设施不能满足需求的生产者的原因”中，61%“源于产地冷藏设施缺乏或数量不足”。</p>
-		<p>目前，我国冷链资源主要集中在东南沿海地区，以及北京上海这些一二线城市等生鲜销售地，然而许多生鲜产品产地却位于中西部地区。例如，四川、云南、新疆等省份苹果产量较大，冷链资源却十分稀缺，这就导致树上摘下来的苹果，无法第一时间配备冷链运输设施，果实新鲜度迅速损失。</p>
+		<p>《2019农产品产地冷链研究报告》显示，<span class="highlight">在冷库设施不能满足需求的生产者中，</span>有61%认为这是产地冷藏设施缺乏或数量不足导致的。</p>
+		<p>目前，我国冷链资源主要集中在东南沿海地区，以及北京上海这些一二线城市等生鲜销售地，然而许多生鲜产品产地却位于中西部地区。例如，四川、云南、新疆等地区苹果产量较大，冷链资源却十分稀缺，这就导致树上摘下来的苹果，<span class="highlight">无法第一时间配备冷链运输设施，果实新鲜度迅速损失。</span></p>
 		<div id="container"></div>
 		<br>
 		<p>在冷链资源缺乏的地区，企业找不到合适的仓库，运输需求大于运输能力，生鲜物流的成本也随之提高。</p>
-		<p>冷链运输需要一些专业的制冷设备，包括冷库、制冷车、制冷电费等，它们的购买和维持费用远高于常温运输，因此提高了生鲜产品的物流成本。“像苹果常温运输的成本在3kg/5元左右，”做圆通速递生鲜冷链业务的李茂元计算道，“而顺丰冷链平均下来则在13元左右。”</p>
+		<p>冷链运输需要一些专业的制冷设备，包括冷库、制冷车、制冷电费等，它们的购买和维持费用远高于常温运输，因此提高了生鲜产品的物流成本。“像苹果常温运输的成本在5元/3kg左右，”做圆通速递生鲜冷链业务的李茂元计算道，“而顺丰冷链平均下来则在13元左右。”</p>
+		
     .   <img class="pic1" src="images/透明数据图/冷链价格对比（透明）-01.png"><br>
+		<p style="font-family: '楷体';text-align:center;font-size: 15px;">图：冷链运输和常温运输的价格对比</p>
+		<br>
 <p>此外，包装也是提高冷链运输成本的因素之一。李茂元指出，生鲜的包装耗材较常温包装更多，“里边用的白色泡沫箱，加上干冰加上冰袋的这种，外面又套上纸箱，表面上看起来可能和常温的快递没什么区别，但实际上它的包装很耗材”。
 </p>
-<p>目前国内生鲜电商冷链物流的成本占总成本的30%左右。然而李茂元认为，健康的生鲜电商物流成本不应超过10%。较高的物流成本，使得大多数中小型生鲜电商没有足够的现金流用于周转，无法承担高昂的冷链配送费用，大大降低了冷链运输广泛普及的可能性。
+<p>目前国内生鲜电商冷链物流的成本占总成本的30%左右。然而李茂元认为，健康的生鲜电商物流成本不应超过10%。较高的物流成本，使得大多数中小型生鲜电商没有足够的现金流用于周转，无法承担高昂的冷链配送费用，导致冷链运输普及率较低。
 </p>
-<p>“我国冷链发展现在还是初级阶段，”李茂元说，“冷链普及是远远比不上发达国家，相应的生鲜腐损率也会比人家高很多。”
-		</p></div>
-<div class="section">
-<div class="box" style="width: 500px;height: 400px">
-	<div class="box-1">
-		<ul>
-			<li>
-				<img src="images/1.jpg" alt="这里是第一场图片"></img>
-				<h2>这里是第一张图片这里是第一张图片</h2>
-			</li>
-			<li>
-				<img src="images/2.jpg" alt="这里是第二张图片"></img>
-				<h2>这里是第二张图片这里是第二张图片</h2>
-			</li>
-			<li>
-				<img src="images/3.jpg" alt="这里是第三张图片"></img>
-				<h2>这里是第三张图片这里是第三张图片</h2>
-			</li>
-			<li>
-				<img src="images/4.jpg" alt="这里是第一场图片"></img>
-				<h2>这里是第四张图片这里是第四张图片</h2>
-			</li>
-			<li>
-				<img src="images/5.jpg" alt="这里是第一场图片"></img>
-				<h2>这里是第五张图片这里是第五张图片</h2>
-			</li>
-		</ul>
-	</div>
-	<div class="box-2">
-		<ul>
-			
-		</ul>
-	</div>
-	<div class="box-3">
-		<span class="prev"> < </span>
-		<span class="next"> > </span>
-	</div>
-</div>
-</div>
-<div clase="section">
-<p>目前，我国果蔬、肉类、水产等生鲜的冷藏流通率分别为15%、30%、40%，而发达国家的这一数值超过80%。在冷藏设施不完备的情况下，生鲜运输的腐损率也高于发达国家数倍。
+<p>“我国冷链发展现在还是初级阶段，”李茂元说，“冷链普及是远远比不上发达国家，相应的生鲜腐损率也会比人家高很多。”</p>
+
+<p>目前，我国果蔬、肉类、水产等生鲜的<a href="https://www.iyiou.com/p/29410.html" style="color:rgba(150, 154, 100)"> 冷链运输率</a>分别为15%、30%、40%，而发达国家的这一数值超过80%。在冷藏设施不完备的情况下，生鲜运输的腐损率也高于发达国家数倍。
 </p>
 <img class="pic1" src="images/透明数据图/中国发达国家对比绿橙（透明）-01.png"><br>
 <p>在降低冷链物流成本方面，2020年中央一号文件提出启动农产品仓储保鲜冷链物流设施建设工程，包括给予优惠用电价格，对农业生产地的冷藏保鲜等设施进行支持等。但除此之外，李茂元认为我国冷链运输的成本并不能在短时间内迅速下降。</p>
 <p>保鲜之路开头的冷链运输是生鲜电商供应链中的关键。要打通分散的产地和需求地之间的联系，并在汇聚的过程中控制温度、湿度，防止污染，保证食品新鲜地到达门店，这还仅仅是生鲜“保鲜”的第一步。</p>
-</div>
+</div></div>
 
 	<br>
 		
@@ -387,33 +234,32 @@ window.onload = function(){
 	<P>到达存储仓后，生鲜产品进入质量损耗的第二个阶段。</P>
 	<p>放置时间一长，生鲜产品会出现打蔫、压坏等问题。针对这一问题，北京市一家每日优鲜店主王先生称，会在商品出库之前进行品质检查，将损坏的商品扔掉。
 </p>
-	<p>品质检查不仅仅包括表面损坏，也包括对存放时间的控制。疫情之前为了避免损耗，公司基于对前一天消费数据的分析，给各个仓储配货，尽量做到当天配货当天售光，如果有积压，积压时间也不能超过一个星期，超时生鲜产品就会被处理掉。在疫情期间，由于“订单量大概比平常增长20~30%”，公司增大了补货量，为控制质量，周转时间被缩短至三天。
+	<p><span class="highlight">品质检查不仅仅包括表面损坏，也包括对存放时间的控制。</span>疫情之前为了避免损耗，公司基于对前一天消费数据的分析，给各个仓储配货，尽量做到当天配货当天售光，如果有积压，积压时间也不能超过一个星期，超时生鲜产品就会被处理掉。在疫情期间，由于“订单量大概比平常增长20~30%”，公司增大了补货量，为控制质量，周转时间被缩短至三天。
 </p>
-	<p>“大概在3月中旬到4月份，开始有‘周转期’（音频交互）这个说法。”王先生说。“像叶菜大概就是三天的周转。从公司开始配货的那一天开始算，包括中间的流通，等到我们的前置仓了顶多卖一天半，这个菜就需要处理，就不能卖了。”
+	<p>“大概在3月中旬到4月份，开始有<span class="highlight">‘周转期’</span>这个说法。”王先生说。“像叶菜大概就是三天的周转。从公司开始配货的那一天开始算，包括中间的流通，等到我们的前置仓了顶多卖一天半，这个菜就需要处理，就不能卖了。”
 </p>
 	<p>对质量的控制不可避免会带来损耗。存储仓的损耗主要来源于货物积压，疫情之前，为了避免积压损耗，公司会通过算法分析前一天的消费数据，进而估计第二天的需求，并辅助人工调整。</p>
-	<p>但行业研究研究者妮可指出，这一看似智能的配货模式实则并不那么精确。“每日优鲜宣传自己有算法，会让订单非常准确。但是我觉得在很长一段时间内，这个算法都不会精准到能预测这个区域的消费者今天想吃什么、不想吃什么。因为顾客需求是多变的，甚至是天气变化也会影响到顾客需求。”
+	<p>但行业研究研究者妮可指出，<span class="highlight">这一看似智能的配货模式实则并不那么精确。</span>“每日优鲜宣传自己有算法，会让订单非常准确。但是我觉得在很长一段时间内，这个算法都不会精准到能预测这个区域的消费者今天想吃什么、不想吃什么。因为顾客需求是多变的，甚至是天气变化也会影响到顾客需求。”
 </p>
 </div>
 
 <div class="section">
 	<h3 style="text-align: center"><span style="font-weight: bolder">最后一公里：断裂的冷链运输</span></h3>
 	<p>目前国内冷链运输存在着成本高、起步晚、基础薄弱等问题，许多生鲜电商尚不具备全程冷链运输的能力。N & K Spedition第二大股东及亚洲区总裁戴治中曾指出，目前中国的冷链物流服务，绝大多数都属于<span class="highlight">断链的状态。</span></p>
-	<p>生鲜电商的“断链”主要表现在最后一公里的配送上，生鲜产品从存储仓取出后，一般采用“电动车+泡沫箱+冰袋/干冰袋”的方式配送，部分商家甚至还采用常温配送或与其他商品混装配送。</p>
+	<p>生鲜电商的<span class="highlight">“断链”</span>主要表现在最后一公里的配送上，生鲜产品从存储仓取出后，一般采用“电动车+泡沫箱+冰袋/干冰袋”的方式配送，部分商家甚至还采用常温配送或与其他商品混装配送。</p>
 	<br>
-	<img class="pic1" src="images/配送/DSC_0198.JPG">
-	<p style="font-family: '楷体';text-align:left;font-size: 15px">图注：为了保证夏天的冷藏食品质量，大润发淘鲜达采用红色保温箱和蓝色冰包给产品保温。</p>
+	<img class="pic1" src="images/lv.jpg" style="width: 300px;height: 400px;">
+	<p style="font-family: '楷体';text-align:left;font-size: 15px;padding: 20px">图注：为了保证夏天的冷藏食品质量，大润发淘鲜达采用红色保温箱和蓝色冰包给产品保温。</p>
 	<br>
 	<p>随着配送时间的延长，配送箱的保温效果会逐渐变差，继而影响食品的新鲜程度。因此，在末端配送能力有限的情况下，生鲜电商需要尽可能选择接近用户的仓配模式。目前，生鲜电商主要有以下三种仓储配送模式。</p>
-	<p>经过细分，目前比较流行的仓配模式有三种：前置仓、店仓一体和第三方配送平台。</p>
+	<p><span class="highlight">经过细分，目前比较流行的仓配模式有三种：前置仓、店仓一体和第三方配送平台。</span></p>
 
 </div>
 <div class="mobile_title">纯存储式前置仓</div>
-<div class="mobile_img"><img src="images/cang1.jpg" alt=""></div>
+<div class="mobile_img"><img src="images/cang11.jpg" alt=""></div>
 <div class="mobile_p1">
 	<br>
-	<br>
-	<p>前置仓是一种被前移的仓库，它将物流中转中心放在用户密度高的“最前线”，由于距离用户较近，配送时间可缩短至半小时至1小时。</p>
+	<p><span class="highlight">前置仓</span>是一种被前移的仓库，它将物流中转中心放在用户密度高的“最前线”，由于距离用户较近，配送时间可缩短至半小时至1小时。</p>
 	<br>
 	 <p>这类仓库只有线上订单，没有线下购买入口，因此为了尽量降低租金，可能会选择地下或其他不太醒目的地点。</p>
 	<br>
@@ -421,9 +267,9 @@ window.onload = function(){
 </div>
 <div id="trigger1"></div>
         <div id="pin1">
-			<div style="position: absolute"><img src="images/cang3.png" style="width:80%;float:left" class="before_3"></div>
-            <div style="position: absolute"><img src="images/cang2.jpg" style="width:80%;float:left" class="before_2"></div>
-            <div style="position: absolute"><img src="images/cang1.jpg" style="width:100%;float:left" class="before_1"></div>
+			<div style="position: absolute"><img src="images/cang33.jpg" style="width:80%;float:left" class="before_3"></div>
+            <div style="position: absolute"><img src="images/cang22.jpg" style="width:80%;float:left" class="before_2"></div>
+            <div style="position: absolute"><img src="images/cang11.jpg" style="width:100%;float:left" class="before_1"></div>
         </div>
         <div id="pin1_words">
             <h4 class="pin1_content">纯存储式前置仓</h4>
@@ -431,32 +277,32 @@ window.onload = function(){
 			<br>
 				<div class="pin1_content">
 					<p>前置仓是一种被前移的仓库，它将物流中转中心放在用户密度高的“最前线”，由于距离用户较近，配送时间可缩短至半小时至1小时。</p>
-					<br>
+				
 					 <p>这类仓库只有线上订单，没有线下购买入口，因此为了尽量降低租金，可能会选择地下或其他不太醒目的地点。</p>
-					<br>
+					
 					<p>前置仓通过大数据分析周边用户的具体需求，每个仓库只存放少部分品类，减少占地面积和管理成本。</p>
 					<br>
 				</div>
 						<div id="trigger2"></div>
 			<h4>仓店一体</h4>
-			<div class="mobile_img"><img src="images/cang2.png" alt=""></div>
+			<div class="mobile_img"><img src="images/cang22.jpg" alt=""></div>
 			<br>
-			<br>
-		    <p>店仓一体，相当于把前置仓和生鲜门店融为一体，同时具有线上和线下的购买入口。</p>
-			<br>
+			
+		    <p>仓店一体，相当于把前置仓和生鲜门店融为一体，同时具有线上和线下的购买入口。</p>
+			
 		    <p>对于线下消费者来说，它是一个门店，顾客可以走进来逛街买菜；对于线上消费者来说，它是物流的中转中心（即仓库），线上订单直接从门店发货配送。</p>
-		    <br>
-			<p>由于兼具线上线下需求，店仓一体往往位于人流量较大的居民区附近，租金成本较高。</p>
-	        <br>
-			<p>店仓一体模式中，从门店货架、实时库存到即时配送，都需要在线上线下同步进行。完善的门店管理能力和数据处理能力，两者缺一不可。</p>
+		    
+			<p>由于兼具线上线下需求，仓店一体往往位于人流量较大的居民区附近，租金成本较高。</p>
+	        
+			<p>仓店一体模式中，从门店货架、实时库存到即时配送，都需要线上线下同步进行。完善的门店管理能力和数据处理能力，两者缺一不可。</p>
 			<br>
 			<div id="trigger3"></div>
-			<h4>第三方配送平台</h4>
-			<div class="mobile_img"><img src="images/cang3.png" alt=""></div>
+			<h4>门店+第三方配送平台</h4>
+			<div class="mobile_img"><img src="images/cang33.jpg" alt=""></div>
 			<br>
 		  <p>建立自己的配送体系，需要投入大量的金钱成本和技术成本，传统生鲜零售巨头尚且转型艰难，对体量中小的零售商而言更是天方夜谭。将配送服务外包给第三方配送平台，成为中小生鲜零售商的便宜之策。</p>
-			<br>
-			<p>除了配送方式外，这一模式的核心与店仓一体十分类似，即把门店和仓库融合，同时经营线上和线下业务。因此在选址上，也主要分布在人流量大的居民聚集地段。</p>
+			
+			<p>除了配送方式外，这一模式的核心与仓店一体十分类似，即把门店和仓库融合，同时经营线上和线下业务。因此在选址上，也主要分布在人流量大的居民聚集地段。</p>
 			<br>
 			<div id="trigger4"></div>
 			<div id="trigger100"></div>
@@ -466,15 +312,13 @@ window.onload = function(){
 <div class="section">
 	<br>
 	<br>
-	<br>
-	<br>
-	<p>传统生鲜零售做的是线下生意，生鲜产品在门店内保鲜，顾客可以亲自上门挑选，不涉及配送问题。在这种情况下，仓库的位置对于生鲜产品的保鲜来说并不十分重要，为了降低成本，仓库往往位于远离人群的偏远郊区。</p>
-	<img class="pic1" src="images/配送中心、菜场素材/配送中心3.JPG">
-	<p style="font-family: '楷体';text-align:left;font-size: 15px">图注：浙江乐清一家连锁超市配送中心的仓库。仓库面积两万平方米，位于经济开发区。</p>
+	<p>传统生鲜零售做的是线下生意，生鲜产品在门店内保鲜，顾客可以亲自上门挑选，不涉及配送问题。在这种情况下，仓库的位置对于生鲜产品的保鲜来说并不十分重要，为了降低成本，仓库往往位于远离人群的偏远郊区。</p><br>
+	<img class="pic1" src="images/配送中心、菜场素材/配送中心3.JPG" style="width:400px ;height:250px ">
+	<p style="font-family: '楷体';text-align:left;font-size: 15px;padding: 20px">图注：浙江乐清一家连锁超市配送中心的仓库。仓库面积两万平方米，位于经济开发区。</p>
 	<br>
 	<p>但这一模式对生鲜电商来说并不可行，末端配送的断链问题不解决，生鲜电商就无法“离开”用户。</p>
-	<p>分析北京市生鲜电商仓库及门店分布数据后发现，北京市生鲜电商大多分布在人口密集的城区。虽然人流量密集地区租金相对较高，但覆盖更多的潜在消费者的同时，也可以缩短配送距离和时间，在一定程度上弥补了末端配送保温设施不足的问题，保证生鲜产品的优质新鲜。</p>
-	<p>从生鲜产地到存储仓，从存储仓到用户，生鲜运输过程中的每一秒、每一米都在力求“保鲜”。因疫情而暴涨的需求，既是对生鲜电商发展八年以来的供应链硬件的考验，也是不同的仓配模式探索之间的较量。</p>
+	<p>分析北京市生鲜电商仓库及门店分布数据后发现，<span class="highlight">北京市生鲜电商大多分布在人口密集的城区。</span>虽然人流量密集地区租金相对较高，但覆盖更多的潜在消费者的同时，也可以缩短配送距离和时间，在一定程度上弥补了末端配送保温设施不足的问题，保证生鲜产品的优质新鲜。</p>
+	<p><span class="highlight">从生鲜产地到存储仓，从存储仓到用户，生鲜运输过程中的每一秒、每一米都在力求“保鲜”。</span>因疫情而暴涨的需求，既是对生鲜电商发展八年以来的供应链硬件的考验，也是不同的仓配模式探索之间的较量。</p>
 </div>
 
 <!--第三部分：疫情之后，“新鲜”不只表面-->
@@ -486,31 +330,33 @@ window.onload = function(){
 		</div>
 		<!-- 导语 -->
 		<div id="lead">
-		<p style="font-family: '楷体';text-align: left;padding-top: 50px;color:#EAE4E6">北京物资学院王可山教授认为：“疫情使人们进一步认识到食品安全的重要性，人们更加注重并将持续保持安全距离，对电商和网购的依赖性也将持续下去。”
+		<p style="font-family: '楷体';text-align: left;padding-top: 50px;color:#000000">“疫情使人们进一步认识到食品安全的重要性，人们更加注重并将持续保持安全距离，对电商和网购的依赖性也将持续下去。”———北京物资学院王可山教授
 </p>
 		</div>
 	</header>
     <div class="section">
 		<br>
-		<p>“追求新鲜主要就是在追求健康、追求安全嘛，”2020年是范亚在北京工作的第十年，也是他使用生鲜电商的第五年，“你用生鲜电商买来的东西不能吃了拉肚子、生病。”</p>
+		<p><span class="highlight">“追求新鲜主要就是在追求健康、追求安全嘛，”</span>2020年是范亚在北京工作的第十年，也是他使用生鲜电商的第五年，“你用生鲜电商买来的东西不能吃了拉肚子、生病。”</p>
 		<p>范亚是生鲜电商用户的一个典型代表。目前生鲜电商的用户主要是集中在一二线城市，收入较高的年轻人。对照一项关于一至三线城市23-50岁消费者的调查来看，在消费升级的大背景下，这一群体对于自己的生活品质有着较高的追求。</p>
 		<br>
-		<img class="pic1" src="images/透明数据图/用户画像（透明）-01.png">
-	    <img class="pic1" src="images/透明数据图/关注品质生活（透明）-01.png">
+		<img class="pic1" src="images/透明数据图/用户画像test大-01.png">
+	    <img class="pic1" src="images/透明数据图/关注品质生活test-01.png">
 		<p style="font-family: '楷体';text-align: center;font-size: 15px">生鲜电商用户图像</p>
 		<br>
 		<p>其中，最主要的追求是健康。在调查中，86%的受访者认为“健康的”是“符合品质生活的描述”，在“构成品质生活的要素”中，“健康状况”也以88%的选择比例高居榜首。</p>
-		<p>在这样的背景下，用户对于新鲜的追求不再止于表面的完好无损，营养是否流失、安全是否有保证，越来越受到用户的关注。</p>
+		<p>在这样的背景下，<span class="highlight">用户对于新鲜的追求不再止于表面的完好无损</span>，营养是否流失、安全是否有保证，越来越受到用户的关注。</p>
 		<p>此外，这场疫情也再次强调了生鲜食品的安全问题。从最初疫情爆发的华南海鲜市场，到近日疫情反弹的北京新发地菜市场，传统农贸市场的卫生环境和食品安全保障引发了全社会的关注与思考。</p>
-		<p>新发地疫情爆发后，每日优鲜、京东等生鲜电商平台看准时机、发布声明，强调自家生鲜商品流通过程中所采取的安全措施，消减消费者对于食品安全的忧虑。以往生鲜电商主要强调生鲜产品的新鲜，疫情过后，安全作为新鲜的更高层次，或许会得到更多的关注。</p>
+		<p>新发地疫情爆发后，每日优鲜、京东等生鲜电商平台迅速发布声明，强调自家生鲜商品流通过程中所采取的安全措施，消减消费者对于食品安全的忧虑。以往生鲜电商主要强调生鲜产品的新鲜，疫情过后，安全作为新鲜的更高层次，或许会得到更多的关注。</p>
 		
 		<br>
 		<img class="pic1" src="images/WechatIMG59.jpeg" style="width: 300px;height: 500px">
-		<p style="font-family: '楷体';text-align:left;font-size: 15px">图注：新发地疫情发生后，每日优鲜、京东等生鲜电商平台发布声明，重点强调了生鲜商品流通过程中所采取的安全措施，消减疫情之下消费者对于食品安全的忧虑。</p>
+		<p style="font-family: '楷体';text-align:left;font-size: 15px;padding: 20px">图注：以往生鲜电商主要强调生鲜产品的新鲜。疫情过后，安全作为新鲜的进一步追求得到社会更多的关注。</p>
 		<br>
         <p>同时，新鲜与安全也为生鲜电商未来的发展指出一条道路。</p> 
 		<p>有人认为，疫情期间的表现就是生鲜电商的“行业天花板”，疫情过后，生鲜电商面临着用户流失、保鲜受阻等重重问题，未来再难现如此辉煌。但北京物资学院王可山教授认为，疫情引发的对于食品安全的担忧，在考验着生鲜电商的同时，也给生鲜电商的发展带来了更大的机遇：“疫情使人们进一步认识到食品安全的重要性，人们更加注重并将持续保持安全距离，对电商和网购的依赖性也将持续下去。”</p>
-		<p>天花板是否已经出现，目前下结论还为时过早。生鲜电商要做的，就是满足用户对于新鲜的需求，注重新鲜，而不止于新鲜。</p>
+		<p>“留住”疫情期间的用户并不是生鲜电商的当务之急。天花板是否已经出现，目前下结论也还为时过早。</p>
+		<p>生鲜电商要做的，是不断完善自身供应链和仓配模式，满足用户对于“新鲜”的需求；同时不止于“新鲜”，<span class="highlight">走好从“保新鲜”到“保安全”“保健康”的升级之路。</span></p>
+		
 </div>
        
 	
@@ -518,72 +364,28 @@ window.onload = function(){
     <!--以下为footer-->
     <div class='clear'>
     <div class="section" style="margin-top:50px">
-		<p style="font-family: '楷体';color: gray;text-align: left">文中xxxxx均为化名</p>
+		<p style="font-family: '楷体';color: gray;text-align: left">文中林女士、张女士为化名</p>
     </div>
  <div class="section" style="margin-top:50px">
         <h5 style="color:#a6a6a6">数据来源</h5>
         <p style="color:#a6a6a6;font-size: 13px">
-            1.《QuestMobile2020年到家经济发展研究报告》
-            <br> 2.https://www.questmobile.com.cn/research/report-new/88
-            <br>3.生鲜电商评论数据来源：蝉大师https://www.chandashi.com/
-
-            <br> 4.生鲜电商APP月活数据来源：易观千帆
-https://qianfan.analysys.cn/refine/view/rankApp/rankApp.html
-            <br>5.《我国冷链流通率低，腐损率高，冷链基础设施建设亦不完善》
-
-            <br>6.	http://www.leadingir.com/trend/view/3493.html
-
-            <br>7.网经社《【物流数据】目前我国综合冷链流通率仅为19%》
-http://www.100ec.cn/detail--6177595.html
-
-            <br>8.严选&WAVEMAKER：《中国品质生活白皮书》http://www.199it.com/archives/723253.html
-
-            <br>9.艾瑞报告：2019中国生鲜电商行业用户画像分析报告
-http://www.ebrun.com/20190401/327459.shtml
-<br>10.网经社电数宝：电商行业数据库
-https://www.100ec.cn/Home/User/industryData.html?name=sxds
-			<br>11.中冷联盟：2019版全国冷链物流企业分布图
-http://www.lenglianwuliu.org.cn/menu/details.html?menuId=62
-
-    </div>
-	<div class="section" style="margin-top:50px">
-        <h5 style="color:#a6a6a6">参考文章报道链接</h5>
-        <p style="color:#a6a6a6;font-size: 13px">
-            1.《北京连续确诊3例新冠患者 新发地批发市场暂停营业》http://china.caixin.com/2020-06-12/101566524.html
-            <br> 2.	《北京已累计对234.2万人进行核酸检测 日核酸检测能力已提升至30万份以上》 http://www.gov.cn/xinwen/2020-06/23/content_5521367.htm
-            <br>3.《36氪独家 | 每日优鲜完成新一轮融资，投前估值超过30亿美元》https://36kr.com/p/717445292705671
-
-            <br> 4.	《中物联冷链委：2019农产品产地冷链研究报告》https://www.sohu.com/a/341377291_608787
-
-            <br>5.《疫情之下，还原真实的冷链物流》http://www.lenglian.org.cn/news/2020/27208.html
-
-            <br>6.《农业农村部关于加快农产品仓储保鲜冷链设施建设的实施意见》http://www.gov.cn/zhengce/zhengceku/2020-04/21/content_5504611.htm
-
-            <br>7.《与国外差距巨大 中国冷链物流“发育不良”》https://www.qianzhan.com/analyst/detail/220/170629-6c63e63b.html
-
-            <br>8.《冷链物流背后的“断链”思考》http://www.zgsyb.com/news.html?aid=530826
-
-            <br>9.《1.6万进口生鲜无新冠病毒 冰鲜哪些环节存污染风险？》
-http://www.caixin.com/2020-06-20/101570291.html
-			<br>10.全国农产品商务信息公共服务平台
-http://nc.mofcom.gov.cn/channel/qytc2017/specMap.shtml
-			<br>11.2020中央一号文件
+        
+<br> 1.《36氪独家 | 每日优鲜完成新一轮融资，投前估值超过30亿美元》https://36kr.com/p/717445292705671
+<br> 2.《中物联冷链委：2019农产品产地冷链研究报告》https://www.sohu.com/a/341377291_608787
+<br> 3.《疫情之下，还原真实的冷链物流》http://www.lenglian.org.cn/news/2020/27208.html
+<br> 4.《与国外差距巨大 中国冷链物流“发育不良”》https://www.qianzhan.com/analyst/detail/220/170629-6c63e63b.html
+<br> 5.《2019-2025年中国生鲜电商行业三四线城市市场拓展战略研究报告》https://wenku.baidu.com/view/0e0f17d1c67da26925c52cc58bd63186bdeb9266.html#
+<br> 6.2020中央一号文件
 http://www.moa.gov.cn/ztzl/jj2020zyyhwj/2020zyyhwj/202002/t20200207_6336683.htm
-			<br>12.冷链市场混战 外国大军加入争夺http://www.wuliujia2018.com/html/56666.html
-
-
-    </div>
-		<div class="section" style="margin-top:50px">
-        <h5 style="color:#a6a6a6">参考文献</h5>
-        <p style="color:#a6a6a6;font-size: 13px">
-            	1.高峰.生鲜农产品电商物流末端配送问题优化研究[J].南方农机,2020,51(03):81.
-	<br>2.李勇坚.疫情中生鲜电商的机遇、问题与对策：在线新经济视角[J].统一战线学研究,2020,4(03):68-75.
-	<br>3.田继源,杨永安,吴子健.冻藏期间温度波动对三文鱼品质的影响[J].食品研究与开发,2020,41(11):66-70.
+<br> 7.高峰.生鲜农产品电商物流末端配送问题优化研究[J].南方农机,2020,51(03):81.
+<br> 8.李勇坚.疫情中生鲜电商的机遇、问题与对策：在线新经济视角[J].统一战线学研究,2020,4(03):68-75.
+            
 
     </div>
+	
     <div class="section">
         <p style='text-align: center;font-size: 14px;color:gray;padding-top: 100px'>
-            ◎作者：赚大钱 </p>
+            ◎作者：慈善数新小组 </p>
     </div>
  <img src="images/footer.jpg" style="width:100%">
 		</body>
@@ -958,10 +760,9 @@ $.getJSON(geochina + 'china.json&callback=?', function(mapdata) {
 		},
 		title: {
 			useHTML:true,
-			text: '冷链资源集中在生鲜销售地<br>而不是生产地</br>',
+			text: '冷链资源集中在<b>生鲜销售地</b><br>而不是生产地</br>',
 			style:{
-				fontSize:'24px',
-				fontWeight:'bold',
+				fontSize:'15px',
 				textAlign:'center',
 			},
 		},
@@ -1027,7 +828,7 @@ $.getJSON(geochina + 'china.json&callback=?', function(mapdata) {
                 var scene = new ScrollMagic.Scene({
                         triggerElement: "#trigger1",
                         duration: 1300,
-                        //offset: 300,
+                        // offset: 300,
                         triggerHook: 0.05,
                     })
                     .setPin("#pin1")
