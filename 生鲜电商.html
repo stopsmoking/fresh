@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -46,8 +47,127 @@
 	<script src="js/jquery.color.js" language="javascript"></script>
 	
 	
-	</head>
+</head>
+<style type="text/css">
+ul,li {list-style: none;}
+a {text-decoration: none;color:#F9FAEB;}
+.box{width: 800px;height: 400px;margin: 20px auto;overflow:hidden;position: relative;}
+.box-1 ul{}
+.box-1 ul li{width: 800px;height: 400px;position: relative;overflow: hidden;}
+.box-1 ul li img{display:block;width: 800px; height: 400px;}
+.box-1 ul li h2{position: absolute;left: 0;bottom: 0;height: 40px;width:300px;background: rgba(125,125,120,.4);text-indent: 2em;
+				padding-right:500px ;font-size: 15px;line-height: 40px;text-overflow: ellipsis;overflow: hidden;
+				white-space: nowrap;font-weight: normal;color: ghostwhite}
+.box-2{position: absolute;right: 10px;bottom: 14px;}
+.box-2 ul li{float:left;width: 12px;height: 12px;overflow: hidden; margin: 0 5px; border-radius: 50%;
+				background: rgba(0,0,0,0.5);text-indent: 100px;cursor: pointer;}
+.box-2 ul .on{background: rgba(255,255,255,0.6);}
+.box-3 span{position: absolute;color: white;background: rgba(125,125,120,.3);width: 50px;height: 80px;
+				top:50%; font-family: "宋体";line-height: 80px;font-size:60px;margin-top: -40px;
+				text-align: center;cursor: pointer;}
+.box-3 .prev{left: 10px;}
+.box-3 .next{right: 10px;}
+.box-3 span::selection{background: transparent;}
+.box-3 span:hover{background: rgba(125,125,120,.8);}
+</style>
 
+<script type="text/javascript">
+window.onload = function(){
+	function $(param){
+		if(arguments[1] == true){
+			return document.querySelectorAll(param);
+		}else{
+			return document.querySelector(param);
+		}
+	}
+	var $box = $(".box");
+	var $box1 = $(".box-1 ul li",true);
+	var $box2 = $(".box-2 ul");
+	var $box3 = $(".box-3");
+	var $length = $box1.length;
+	
+	var str = "";
+	for(var i =0;i<$length;i++){
+		if(i==0){
+			str +="<li class='on'>"+(i+1)+"</li>";
+		}else{
+			str += "<li>"+(i+1)+"</li>";
+		}
+	}
+	$box2.innerHTML = str;
+	
+	var current = 0;
+	
+	var timer;
+	timer = setInterval(go,1000);
+	function go(){
+		for(var j =0;j<$length;j++){
+			$box1[j].style.display = "none";
+			$box2.children[j].className = "";
+		}
+		if($length == current){
+			current = 0;
+		}
+		$box1[current].style.display = "block";
+		$box2.children[current].className = "on";
+		current++;
+	}
+	
+	for(var k=0;k<$length;k++){
+		$box1[k].onmouseover = function(){
+			clearInterval(timer);
+		}
+		$box1[k].onmouseout = function(){
+			timer = setInterval(go,1000);
+		}
+	}
+	for(var p=0;p<$box3.children.length;p++){
+		$box3.children[p].onmouseover = function(){
+			clearInterval(timer);
+		};
+		$box3.children[p].onmouseout = function(){
+			timer = setInterval(go,1000);
+		}
+	}
+	
+	for(var u =0;u<$length;u++){
+		$box2.children[u].index  = u;
+		$box2.children[u].onmouseover = function(){
+			clearInterval(timer);
+			for(var j=0;j<$length;j++){
+				$box1[j].style.display = "none";
+				$box2.children[j].className = "";
+			}
+			this.className = "on";
+			$box1[this.index].style.display = "block";
+			current = this.index +1;
+		}
+		$box2.children[u].onmouseout = function(){
+			timer = setInterval(go,1000);
+		}
+	}
+	
+	$box3.children[0].onclick = function(){
+		back();
+	}
+	$box3.children[1].onclick = function(){
+		go();
+	}
+	function back(){
+		for(var j =0;j<$length;j++){
+			$box1[j].style.display = "none";
+			$box2.children[j].className = "";
+		}
+		if(current == 0){
+			current = $length;
+		}
+		$box1[current-1].style.display = "block";
+		$box2.children[current-1].className = "on";
+		current--;
+	}
+}
+</script>
+	
 <style>
 	p{
 		text-indent: 2em;
@@ -55,6 +175,7 @@
 	}
 	
 	</style>
+	
 <body>
 <!-- loading资源预加载 -->
 <div id="preloader" class="preloader">
@@ -103,7 +224,11 @@
 		<p>6月12号，北京最大农产品批发市场新发地出现新冠阳性患者，引发一波“抢菜”大潮：多个生鲜电商APP上的生鲜产品被抢购一空，还有网友晒出超市空荡荡的菜架照片。</p>
 				<br>
 		<img class="pic1" src="images/导语配图.jpg" style="width:400px;height: 250px">
+<<<<<<< HEAD
+		<p style="font-family: '楷体';text-align: center;font-size: 15px;padding: 20px">网友晒出的空荡荡的菜架 @coco家的王小黄  </p>
+=======
 		<p style="font-family: '楷体';text-align: center;font-size: 15px；padding：20px">网友晒出的空荡荡的菜架 @coco家的王小黄  </p>
+>>>>>>> 3313d7fff72d51c1e59903bca1f6a48827510bab
 		<br>
 		<p>“抢菜”对于刚刚经历过居家抗疫的人来说并不陌生。漫长的疫情期间，千万家庭“被迫”成为了线上买菜的新用户，抢购便宜又新鲜的水果蔬菜成为许多人每天都要做的事。</P>
 
@@ -124,7 +249,7 @@
 		</div>
 		<!-- 导语 -->
 		<div id="lead">
-			<p style="font-family: '楷体';text-align: left;color:#000000">“方便是方便，就是东西送过来不知道好差。像活虾买过来有时候活蹦乱跳的，有时候买过来有一半是死的。”——张女士<br><audio controls src="张女士.mp3" style="width: 0.01px;height: 0.5px;background-color:#FFFEFD;"></audio></p>
+			<p style="font-family: '楷体';text-align: left;color:#000000">“方便是方便，就是东西送过来不知道好差。像活虾买过来有时候活蹦乱跳的，有时候买过来有一半是死的。”——张女士<audio controls src="张女士.mp3"></audio></p>
 		</div>
 	</header>
 
@@ -149,7 +274,7 @@
 			<p>对比不同平台的新鲜度后，张女士现在多在拼多多上买蔬菜，在盒马上买海鲜更多。她认为，虽然生鲜电商平台会采取一定的保鲜措施，<span class="highlight">但“保不好鲜”的问题依然存在。</span></p>
 		<br>
         <img class="pic1" src="images/配图/第一部分-张女士从盒马上买的菜（受访者供图）.jpg" style="width:400px;hight:250px">
-		<p style="font-family: '楷体';text-align: center;font-size: 15px">居住在海边的张女士喜欢买鱼虾等海鲜，“鱼虾会处理得很干净，菜市场不会，我想这些可能也有保鲜的东西放进去。”(受访者供)  </p>
+		<p style="font-family: '楷体';text-align: center;font-size: 15px">居住在海边的张女士喜欢买鱼虾等海鲜，“鱼虾会处理得很干净，<br>菜市场不会，我想这些可能也有保鲜的东西放进去。”(受访者供)  </p>
 		<br>
 		
 	</div>
@@ -176,7 +301,7 @@
 	   </p>
 		<br>
 		<img class="pic1" src="images/配图/第一部分-大润发配送货架.jpg" style="width:400px;hight:250px">
-		<p style="font-family: '楷体';text-align:left;font-size: 15px;padding: 20px">图注：扬州一家大润发的生鲜电商经理要求员工认真挑选线上顾客的商品，“因为我们的顾客没有来，我们要站在他的角度去挑选商品，通过员工的分拣来满足客户。”</p>
+		<p style="font-family: '楷体';text-align:center;font-size: 15px;padding: 20px">图注：扬州一家大润发的生鲜电商经理要求员工认真挑选线上顾客的商品，<br>“因为顾客没有来，我们要站在他的角度去挑选商品。”</p>
 		<br>
 		<p><span class="highlight">保持生鲜产品的新鲜并不是一件容易事。从产地到用户手中，全流程采用冷链保鲜困难重重。如何有效进行生鲜流通过程中的保鲜，一直是生鲜电商从业者着力研究的问题。</p>
 		<br>
@@ -191,7 +316,7 @@
 			<!-- <div id="scroller" title="Scroll Down"></div> -->
 		</div>
 		<!-- 导语 -->
-		<div id="lead"><p style="font-family: '楷体';text-align: left;color:#000000">“没有冷藏车的话，可能是40%的腐坏，而有冷藏车的话，可能只是5%的腐坏。”———物流从业者李茂元<br><audio controls src="关于成本和冷链资源分布.mp3" style="width: 0;height: 0;background-color:'#FFFEFD',"></audio></p></div>
+		<div id="lead"><p style="font-family: '楷体';text-align: left;color:#000000">“没有冷藏车的话，可能是40%的腐坏，而有冷藏车的话，可能只是5%的腐坏。”———物流从业者李茂元<audio controls src="关于成本和冷链资源分布.mp3" style="width: 100;height: 30;background-color:'#FFFEFD',"></audio></p></div>
 	</header>
 <div class="section">
 	<br>
@@ -249,7 +374,7 @@
 	<p>生鲜电商的<span class="highlight">“断链”</span>主要表现在最后一公里的配送上，生鲜产品从存储仓取出后，一般采用“电动车+泡沫箱+冰袋/干冰袋”的方式配送，部分商家甚至还采用常温配送或与其他商品混装配送。</p>
 	<br>
 	<img class="pic1" src="images/lv.jpg" style="width: 300px;height: 400px;">
-	<p style="font-family: '楷体';text-align:left;font-size: 15px;padding: 20px">图注：为了保证夏天的冷藏食品质量，大润发淘鲜达采用红色保温箱和蓝色冰包给产品保温。</p>
+	<p style="font-family: '楷体';text-align:center;font-size: 15px;padding: 20px">图注：为了保证夏天的冷藏食品质量，<br>大润发淘鲜达采用红色保温箱和蓝色冰包给产品保温。</p>
 	<br>
 	<p>随着配送时间的延长，配送箱的保温效果会逐渐变差，继而影响食品的新鲜程度。因此，在末端配送能力有限的情况下，生鲜电商需要尽可能选择接近用户的仓配模式。目前，生鲜电商主要有以下三种仓储配送模式。</p>
 	<p><span class="highlight">经过细分，目前比较流行的仓配模式有三种：前置仓、店仓一体和第三方配送平台。</span></p>
@@ -314,10 +439,49 @@
 	<br>
 	<p>传统生鲜零售做的是线下生意，生鲜产品在门店内保鲜，顾客可以亲自上门挑选，不涉及配送问题。在这种情况下，仓库的位置对于生鲜产品的保鲜来说并不十分重要，为了降低成本，仓库往往位于远离人群的偏远郊区。</p><br>
 	<img class="pic1" src="images/配送中心、菜场素材/配送中心3.JPG" style="width:400px ;height:250px ">
-	<p style="font-family: '楷体';text-align:left;font-size: 15px;padding: 20px">图注：浙江乐清一家连锁超市配送中心的仓库。仓库面积两万平方米，位于经济开发区。</p>
+	<p style="font-family: '楷体';text-align:center;font-size: 15px;padding: 20px">图注：浙江乐清一家连锁超市配送中心的仓库。<br>仓库面积两万平方米，位于经济开发区。</p>
 	<br>
 	<p>但这一模式对生鲜电商来说并不可行，末端配送的断链问题不解决，生鲜电商就无法“离开”用户。</p>
-	<p>分析北京市生鲜电商仓库及门店分布数据后发现，<span class="highlight">北京市生鲜电商大多分布在人口密集的城区。</span>虽然人流量密集地区租金相对较高，但覆盖更多的潜在消费者的同时，也可以缩短配送距离和时间，在一定程度上弥补了末端配送保温设施不足的问题，保证生鲜产品的优质新鲜。</p>
+	<p>分析北京市生鲜电商仓库及门店分布数据后发现，<span class="highlight">北京市生鲜电商大多分布在人口密集的城区。</span>虽然人流量密集地区租金相对较高，但覆盖更多的潜在消费者的同时，也可以缩短配送距离和时间，在一定程度上弥补了末端配送保温设施不足的问题，保证生鲜产品的优质新鲜。</p></div>
+<div class="section">
+	<div class="box" style="width: 600px;height: 400px">
+	<div class="box-1">
+		<ul>
+			<li>
+				<img src="images/配送/peisong2.JPG" alt="一"></img>
+				<h2>最后一公里的第一步：从仓库里里面无接触配置商品</h2>
+			</li>
+			<li>
+				<img src="images/配送/peisong.JPG" alt="二"></img>
+				<h2>仓库外，有专门供配送小哥们停车的仓库</h2>
+			</li>
+			<li>
+				<img src="images/配送/peisong3.JPG" alt="三"></img>
+				<h2>配送小哥配送包配备的冰镇袋，以确保生鲜产品最后一公里的新鲜</h2>
+			</li>
+			<li>
+				<img src="images/配送/peisong1.JPG" alt="四"></img>
+				<h2>完成最后一公里：配送小哥准备出发去送货</h2>
+			</li>
+			<li>
+				<img src="images/配送/peisong4.jpg" alt="五"></img>
+				<h2>送达用户小区门口后，疫情需要，采取无接触配送取件</h2>
+			</li>
+		</ul>
+	</div>
+	<div class="box-2">
+		<ul>
+			
+		</ul>
+	</div>
+	<div class="box-3">
+		<span class="prev"> < </span>
+		<span class="next"> > </span>
+	</div>
+</div>
+</div>
+
+<div class="section">
 	<p><span class="highlight">从生鲜产地到存储仓，从存储仓到用户，生鲜运输过程中的每一秒、每一米都在力求“保鲜”。</span>因疫情而暴涨的需求，既是对生鲜电商发展八年以来的供应链硬件的考验，也是不同的仓配模式探索之间的较量。</p>
 </div>
 
@@ -350,7 +514,7 @@
 		
 		<br>
 		<img class="pic1" src="images/WechatIMG59.jpeg" style="width: 300px;height: 500px">
-		<p style="font-family: '楷体';text-align:left;font-size: 15px;padding: 20px">图注：以往生鲜电商主要强调生鲜产品的新鲜。疫情过后，安全作为新鲜的进一步追求得到社会更多的关注。</p>
+		<p style="font-family: '楷体';text-align:center;font-size: 15px;padding: 20px">图注：以往生鲜电商主要强调生鲜产品的新鲜。<br>疫情过后，安全作为新鲜的进一步追求得到社会更多的关注。</p>
 		<br>
         <p>同时，新鲜与安全也为生鲜电商未来的发展指出一条道路。</p> 
 		<p>有人认为，疫情期间的表现就是生鲜电商的“行业天花板”，疫情过后，生鲜电商面临着用户流失、保鲜受阻等重重问题，未来再难现如此辉煌。但北京物资学院王可山教授认为，疫情引发的对于食品安全的担忧，在考验着生鲜电商的同时，也给生鲜电商的发展带来了更大的机遇：“疫情使人们进一步认识到食品安全的重要性，人们更加注重并将持续保持安全距离，对电商和网购的依赖性也将持续下去。”</p>
@@ -1349,6 +1513,7 @@ Highcharts.chart('container1', {
 
 
 </script>
+
 		
 </body>
 
